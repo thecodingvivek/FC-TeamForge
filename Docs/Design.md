@@ -11,4 +11,4 @@ Vue.js - React - FireBase
 
 ### Ideas
 - There may be a rank system where players who play often will be given higher rank (like OVR)
-- May be create FIFA card like graphics for players
+- May be create FIFA card like graphics for player
