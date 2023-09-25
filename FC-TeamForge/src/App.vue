@@ -3,6 +3,12 @@
     data(){
       return{
         number_of_players:7,
+        addmember:false,
+        is_gk: false,
+        cant_paly_many_pos: false,
+        position:[
+
+        ],
         formation_8:[
           "1-3-2-2",
           "1-3-3-1",
@@ -28,8 +34,28 @@
       }
     },
     methods:{
-      Retrive_Formations(){
-
+      toggle(){
+        if(this.addmember==false){
+          this.addmember = true
+        }
+        else{
+          this.addmember = false
+        }
+      },
+      checkPosition(){
+        if(this.position.includes("GK")){
+          this.is_gk = true
+        }
+        else{
+          this.is_gk = false
+        }
+        if(this.position.length>2){
+          this.cant_paly_many_pos = true
+        }
+        else{
+          this.cant_paly_many_pos = false
+        }
+        
       }
     }
   }
@@ -41,6 +67,29 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Mooli&display=swap" rel="stylesheet">
   </head>
+
+  <button @click="toggle">Add Member</button>
+  <form action="" v-show="addmember">
+    <label for="Player">Name</label>
+    <input type="text" name="Player">
+    <br>
+    <label for="position">Position</label><br>
+    <input type="checkbox" v-model="position" value="ATT" @change="checkPosition" :disabled="is_gk">Attacker
+    <input type="checkbox" v-model="position" value="MID" @change="checkPosition" :disabled="is_gk">Mid Fielder
+    <input type="checkbox" v-model="position" value="DEF" @change="checkPosition" :disabled="is_gk">Defender
+    <input type="checkbox" v-model="position" value="GK" @change="checkPosition">Goal Keeper
+    <p v-if="is_gk==true">Goal keepers cannot play any other positions</p>
+    <p v-if="cant_paly_many_pos==true">
+      A player cannot play in more that 2 positions.
+    </p>
+    <div v-if="this.position.length>1">
+      Which Position the player chooses to play
+
+      <input type="range" min="0" max="100">
+    </div>    
+    <button @click="toggle">Next</button>
+  </form>
+
 
   <form action="">
     <label for="squad">Number of players</label>
