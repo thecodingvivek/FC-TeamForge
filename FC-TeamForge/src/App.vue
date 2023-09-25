@@ -18,7 +18,12 @@
           "1-3-1-2-3",
         ],
         formation_11:[
-          ""
+          "1-4-3-3",
+          "1-4-1-2-3",
+        ],
+        formation_12:[
+          "1-4-4-3",
+          "1-4-3-4"
         ]
       }
     },
@@ -56,6 +61,36 @@
   </div>
   <div v-else-if="number_of_players==9" class="formation-div">
     <div class="formations" v-for="x in formation_9">
+      <div style="width: 200px; height: 200px;">
+
+      </div>
+      <div style="text-align: center;">
+        {{ x }}
+      </div>
+    </div>
+  </div>
+  <div v-else-if="number_of_players==10" class="formation-div">
+    <div class="formations" v-for="x in formation_10">
+      <div style="width: 200px; height: 200px;">
+
+      </div>
+      <div style="text-align: center;">
+        {{ x }}
+      </div>
+    </div>
+  </div>
+  <div v-else-if="number_of_players==11" class="formation-div">
+    <div class="formations" v-for="x in formation_11">
+      <div style="width: 200px; height: 200px;">
+
+      </div>
+      <div style="text-align: center;">
+        {{ x }}
+      </div>
+    </div>
+  </div>
+  <div v-else-if="number_of_players==12" class="formation-div">
+    <div class="formations" v-for="x in formation_12">
       <div style="width: 200px; height: 200px;">
 
       </div>
