@@ -23,8 +23,18 @@ con.connect((error)=>{
 })
 
 
-app.get("/", (req, res)=>{
-    res.send({state:"Good"})
+app.post("/api/addPlayer", (req, res)=>{
+    let data = req.body;
+    console.log(req.body)
+    q = "INSERT INTO Players(?,?,?);"
+    con.query(q,[data.name, data.poscat, data.pos],(err,result)=>{
+        if(err){
+            throw err
+        }
+        else{
+            console.log("Insertion Successful !")
+        }
+    })
 })
 
 app.listen(5000, ()=> {
