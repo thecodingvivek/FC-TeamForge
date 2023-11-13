@@ -60,4 +60,16 @@
 </style>
 
 <script>
+  export default {
+    data() {
+      return {
+        isHovered: false,
+      };
+    },
+    methods: {
+      showText(state) {
+        this.isHovered = state;
+      },
+    },
+  };
 </script>
