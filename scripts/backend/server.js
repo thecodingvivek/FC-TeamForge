@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 const con = sql.createConnection({
     host:"localhost",
     user:"root",
-    password:"THANUSmysql@2005",
+    password:"root",
     database:"FC"
 })
 
