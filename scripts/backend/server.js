@@ -1,10 +1,12 @@
 const express = require("express")
 const sql = require("mysql2")
+const bodyParser = require('body-parser');
 const cors = require("cors")
 
 const app = express()
 
 app.use(cors())
+app.use(bodyParser.json());
 
 const con = sql.createConnection({
     host:"localhost",
@@ -23,8 +25,17 @@ con.connect((error)=>{
 })
 
 
-app.get("/", (req, res)=>{
-    res.send({state:"Good"})
+app.post("/api/addPlayer", (req, res)=>{
+    console.log(req.body)
+    q = "INSERT INTO Players(name,positionCategory,position) values(?,?,?);"
+    con.query(q,[req.body.name, req.body.poscat, req.body.pos],(err,result)=>{
+        if(err){
+            throw err
+        }
+        else{
+            console.log("Insertion Successful !")
+        }
+    })
 })
 
 app.listen(5000, ()=> {
