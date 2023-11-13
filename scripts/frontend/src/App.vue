@@ -1,40 +1,75 @@
 <template>
-  <div class="navbar">
-    <router-link to="/newplayer" class="link">New Player</router-link>
+  <div class="addPlayer" @mouseover="showText(true)" @mouseout="showText(false)">
+    <router-link to="/newplayer" class="link">+</router-link>
+    <div class="hoverText" :class="{ 'show': isHovered }">Add New Player</div>
   </div>
   <router-view></router-view>
 </template>
 
 <style>
-  body{
+  body {
     margin: 5px;
   }
 
-  .navbar{
-    background-color: rgb(196, 196, 196);
-    margin: 5px;
-    padding: 15px;
+  .addPlayer {
+    position: fixed;
+    bottom: 3%;
+    right: 2%;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    background-color: #851d30;
+    color: #fff;
+    font-size: 48px;
     display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    vertical-align: middle;
-    border-radius: 10px;
-    height: 40px;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    transition: width 0.2s, height 0.2s, right 0.2s, bottom 0.2s;
   }
-  .link{
-    color: black;
+
+  .addPlayer:hover {
+    bottom: 2.5%;
+    right: 1.5%;
+    width: 80px;
+    height: 80px;
+  }
+
+  .link {
+    color: #fff;
     text-decoration: none;
-    margin-top: 5px;
+  }
+
+  .hoverText {
+    position: absolute;
+    bottom: 30%;
+    right: 115%;
+    font-size: 24px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #1c1c1c;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.2s;
+    pointer-events: none;
+  }
+
+  .show {
+    opacity: 1;
   }
 </style>
 
 <script>
-  import axios from "axios"
-  axios.get("http://localhost:5000/")
-  .then(response => {
-    console.log(response.data)
-  })
-  .catch(error => {
-    console.log(error)
-  })
+  export default {
+    data() {
+      return {
+        isHovered: false,
+      };
+    },
+    methods: {
+      showText(state) {
+        this.isHovered = state;
+      },
+    },
+  };
 </script>
