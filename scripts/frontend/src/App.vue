@@ -1,8 +1,6 @@
 <template>
   <div class="navbar">
     <router-link to="/newplayer" class="link">New Player</router-link>
-    <router-link to="/newplayer" class="link">New Player</router-link>
-    <router-link to="/newplayer" class="link">New Player</router-link>
   </div>
   <router-view></router-view>
 </template>
@@ -29,3 +27,14 @@
     margin-top: 5px;
   }
 </style>
+
+<script>
+  import axios from "axios"
+  axios.get("http://localhost:5000/")
+  .then(response => {
+    console.log(response.data)
+  })
+  .catch(error => {
+    console.log(error)
+  })
+</script>
