@@ -78,6 +78,8 @@
 </style>
 
 <script>
+  import axios from "axios"
+
   export default {
     data() {
       return {
@@ -96,6 +98,15 @@
         else{
           this.namevalid = false
         }
+      },
+      sendData(){
+        axios.post("http://localhost:5000/api/addPlayer",{name:'Thanus',poscat:"Defender",pos:"RB"})
+        .then(response => {
+          console.log(response.data)
+        })
+        .catch(error => {
+          console.log(error)
+        })
       }
     }
   }

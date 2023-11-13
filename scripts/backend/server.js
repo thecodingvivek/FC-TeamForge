@@ -1,15 +1,17 @@
 const express = require("express")
 const sql = require("mysql2")
+const bodyParser = require('body-parser');
 const cors = require("cors")
 
 const app = express()
 
 app.use(cors())
+app.use(bodyParser.json());
 
 const con = sql.createConnection({
     host:"localhost",
     user:"root",
-    password:"2005",
+    password:"THANUSmysql@2005",
     database:"FC"
 })
 
@@ -24,10 +26,9 @@ con.connect((error)=>{
 
 
 app.post("/api/addPlayer", (req, res)=>{
-    let data = req.body;
     console.log(req.body)
-    q = "INSERT INTO Players(?,?,?);"
-    con.query(q,[data.name, data.poscat, data.pos],(err,result)=>{
+    q = "INSERT INTO Players(name,positionCategory,position) values(?,?,?);"
+    con.query(q,[req.body.name, req.body.poscat, req.body.pos],(err,result)=>{
         if(err){
             throw err
         }
