@@ -1,4 +1,7 @@
 <template>
+  <div class="main-body">
+    
+  </div>
   <div class="addPlayer" @mouseover="showText(true)" @mouseout="showText(false)">
     <router-link to="/newplayer" class="link">+</router-link>
     <div class="hoverText" :class="{ 'show': isHovered }">Add New Player</div>
@@ -26,14 +29,11 @@
     justify-content: center;
     border: none;
     cursor: pointer;
-    transition: width 0.2s, height 0.2s, right 0.2s, bottom 0.2s;
+    transition: all 0.2s;
   }
 
   .addPlayer:hover {
-    bottom: 2.5%;
-    right: 1.5%;
-    width: 80px;
-    height: 80px;
+    transform: scale(1.1);
   }
 
   .link {
