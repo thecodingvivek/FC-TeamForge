@@ -1,7 +1,11 @@
 <template>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
   <div class="main-div">
     <div id="closebtn" @click="confirmClose">
-        <router-link to="/" id="close">X</router-link>
+        <router-link to="/" id="close">
+          <i class="fas fa-times"></i>
+        </router-link>
     </div>
     <div class="outerframe">
       <div class="contents">
@@ -48,7 +52,7 @@
   justify-content: center;
   row-gap: 20px;
   width: 400px;
-  background-color: #FFE4E5;
+  background-color: #9BDEAC;
   padding: 20px;
   border-radius: 15px;
   position: absolute;
@@ -95,6 +99,7 @@
     object-fit: cover;
     border-radius: 15px;
   }
+
   .label{
     display: block;
     margin: 10px;
