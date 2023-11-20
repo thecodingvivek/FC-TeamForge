@@ -1,97 +1,176 @@
 <template>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
   <div class="main-div">
-    <div class="input-div">
-      <div class="label">NAME</div>
-      <span class="invalid" v-if="namevalid==false">No special characters</span>
-      <input type="text" v-model="pname" placeholder="Enter Player Name" @input="validateName()" class="input-name">
+    <div id="closebtn" @click="confirmClose">
+        <router-link to="/" id="close">
+          <i class="fas fa-times"></i>
+        </router-link>
     </div>
-    <div class="input-div">
-      <div class="label">POSITION</div>
-      <div class="options-div">
-        <div class="att">
-          <div><input type="radio">ST</div>
-          <div><input type="radio">RW</div>
-          <div><input type="radio">LW</div>
+    <div class="outerframe">
+      <div class="contents">
+        <div class="input-div">
+          <div class="label">NAME</div>
+          <input type="text" v-model="pname" placeholder="Player Name">
         </div>
-        <div class="mid">
-          <div><input type="radio">CAM</div>
-          <div><input type="radio">CM</div>
-          <div><input type="radio">CDM</div>
+        <div class="input-div">
+          <div class="label">POSITION</div>
+          <select name="positions" id="pos" class="options" v-model="selectedCategory">
+            <option value="Attacker" >Attacker</option>
+            <option value="Defender">Defender</option>
+            <option value="Midfielder">Midfielder</option>
+            <option value="Goalkeeper">Goalkeeper</option>
+          </select>
         </div>
-        <div class="def">
-          <div><input type="radio">RB</div>
-          <div><input type="radio">CB</div>
-          <div><input type="radio">LB</div>
-          <div><input type="radio">GK</div>        
+      </div>
+      <div class="file-input-container">
+        <img src="../../public/images/OIG (1).jpeg" alt="Forever Knights" class="default-profile-pic">
+      </div>
+    </div>
+    <!-- Display different blocks based on the selected option -->
+    <div v-if="selectedCategory !== ''">
+      <div class="radio-class">
+        <div v-for="position in positionCategories[selectedCategory]">
+          <input type="radio" id="rad" value="position" v-model="selectedRadio" name="'radio_' + position">{{ position }}
         </div>
       </div>
     </div>
+    <input type="submit" id="submit">
   </div>
 </template>
 
 <style>
-  .main-div{
-    display: flex;
-    flex-direction: column;
-    row-gap: 20px;
-    width: 300px;
-    background-color: rgb(161, 196, 205);
-    padding: 30px;
-    border-radius: 15px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); 
-    z-index: 5;
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;500;600&display=swap');
+  body{
+    font-family: 'Poppins', sans-serif;
   }
-  .label{
-    display: block;
-    background-color: #f0f0f0;
-    width: 200px;
-    padding: 4px;
-    font-size: 15px;
-    border-radius: 3px;
-    margin: 3px;
+
+  .main-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  row-gap: 20px;
+  width: 400px;
+  background-color: #9BDEAC;
+  padding: 20px;
+  border-radius: 15px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   }
-  .invalid{
-    display: block;
-    margin: 5px;
-  }
-  .input-name{
+
+  #closebtn{
+    background-color: #851d30;
+    color: #fff;
+    height: 25px;
+    width: 25px;
     border: none;
-    border-bottom: 2px solid black;
-    background-color: transparent;
-    margin: 5px;
-    
+    border-radius: 50%;
+    position: absolute;
+    top: -1.5%;
+    right: -1.5%;
+    transition: all 0.1s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
-  .input-name:focus{
-    outline: none;
+
+  #closebtn:hover{
+    transform: scale(1.15);
   }
-  .att,.mid,.def{
+
+  #close{
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+  }
+
+  .outerframe{
     display: flex;
     flex-direction: row;
-    margin: 5px;
-    padding: 2px;
-    border-radius: 3px;
+    column-gap: 20px;
   }
-  .att:hover,.mid:hover,.def:hover{
-    background-color: rgb(150, 181, 182);
+
+  .default-profile-pic {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
   }
-  .att{
-    column-gap: 40px;
+
+  .label{
+    display: block;
+    margin: 10px;
   }
-  .mid{
-    column-gap: 25px;
+  .options {
+    width: 200px;
   }
-  .def{
-    column-gap: 37px;
+
+  input{
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    color: #333;
+    outline: none;
+    width: 180px;
   }
-  .options-div{
-    display: flex;
-    flex-direction: column;
-    row-gap: 3px;
-    margin-top: 5px;
+
+  #rad{
+    width:auto;
+    margin-right:5px;
   }
+
+  #submit{
+    width: 100px;
+    background-color: #851d30;
+    color: #fff;
+    border-radius: 30px;
+  }
+
+  .contents{
+    align-content: center;
+  }
+
+  select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #fff;
+    color: #333;
+    outline: none;
+    cursor: pointer;
+  }
+
+  option {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #fff;
+    color: #333;
+  }
+
+  option:checked {
+    background-color: #e0e0e0;
+    color: #000;
+  }
+
+  .radio-class {
+  display: flex;
+  flex-direction: row;
+  column-gap: 15px;
+  height: 50px;
+  width: 375px;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  background-color: #851d30;
+  color: #fff;
+  padding: 10px;
+  }
+
 
 </style>
 
@@ -103,20 +182,17 @@
       return {
         namevalid: true,
         pname:"",
-        pos:[]
+        pos:[],
+        selectedCategory: "",
+        positionCategories: {
+          'Goalkeeper': ['GK'],
+          'Defender': ['RB', 'LB', 'CB'],
+          'Midfielder': ['CDM', 'RM', 'LM', 'CM', 'CAM'],
+          'Attacker': ['RW', 'LW', 'CF', 'ST']
+        },
       }
     },
     methods:{
-      validateName(){
-        const exp = /^[A-Za-z]+$/
-        var v = exp.test(this.pname)
-        if (this.pname=="" || v==true){
-          this.namevalid = true
-        }
-        else{
-          this.namevalid = false
-        }
-      },
       sendData(){
         axios.post("http://localhost:5000/api/addPlayer",{name:'Thanus',poscat:"Defender",pos:"RB"})
         .then(response => {
@@ -125,7 +201,10 @@
         .catch(error => {
           console.log(error)
         })
-      }
+      },
+      confirmClose(){
+        window.confirm("Are you sure. Entered data will be lost")
+      },
     }
   }
 </script>
