@@ -54,3 +54,5 @@ function assignPlayersToFormation(players, formation) {
     console.log(assignedPlayers);
     return assignedPlayers;
 }
+
+module.exports = ({positions, assignPlayersToFormation})

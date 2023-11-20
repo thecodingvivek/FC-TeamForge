@@ -3,25 +3,28 @@
     <div class="input-div">
       <div class="label">NAME</div>
       <span class="invalid" v-if="namevalid==false">No special characters</span>
-      <input type="text" v-model="pname" placeholder="Enter Player Name" @input="validateName()">
+      <input type="text" v-model="pname" placeholder="Enter Player Name" @input="validateName()" class="input-name">
     </div>
     <div class="input-div">
       <div class="label">POSITION</div>
-      <select name="postitions" id="pos" class="options" multiple>
-        <option value="ST">ST</option>
-        <option value="LW">LW</option>
-        <option value="RW">RW</option>
-        <option value="CAM">CAM</option>
-        <option value="LM">LM</option>
-        <option value="CM">CM</option>
-        <option value="RM">RM</option>
-        <option value="CDM">CDM</option>
-        <option value="LB">LB</option>
-        <option value="CB">CB</option>
-        <option value="RB">RB</option>
-        <option value="GK">GK</option>
-      </select>
-      <p>{{ pos }}</p>
+      <div class="options-div">
+        <div class="att">
+          <div><input type="radio">ST</div>
+          <div><input type="radio">RW</div>
+          <div><input type="radio">LW</div>
+        </div>
+        <div class="mid">
+          <div><input type="radio">CAM</div>
+          <div><input type="radio">CM</div>
+          <div><input type="radio">CDM</div>
+        </div>
+        <div class="def">
+          <div><input type="radio">RB</div>
+          <div><input type="radio">CB</div>
+          <div><input type="radio">LB</div>
+          <div><input type="radio">GK</div>        
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -33,48 +36,63 @@
     row-gap: 20px;
     width: 300px;
     background-color: rgb(161, 196, 205);
-    padding: 20px;
-    padding-left: 80px;
-    border-radius: 35px;
+    padding: 30px;
+    border-radius: 15px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    z-index: 5;
   }
   .label{
     display: block;
+    background-color: #f0f0f0;
+    width: 200px;
+    padding: 4px;
+    font-size: 15px;
+    border-radius: 3px;
+    margin: 3px;
   }
   .invalid{
     display: block;
+    margin: 5px;
   }
-  .options{
-    width: 200px;
-    scroll-behavior: smooth;
-    scrollbar-width: thin;
+  .input-name{
+    border: none;
+    border-bottom: 2px solid black;
+    background-color: transparent;
+    margin: 5px;
+    
   }
-  select {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #fff;
-    color: #333;
-    outline: none; 
-    cursor: pointer;
+  .input-name:focus{
+    outline: none;
+  }
+  .att,.mid,.def{
+    display: flex;
+    flex-direction: row;
+    margin: 5px;
+    padding: 2px;
+    border-radius: 3px;
+  }
+  .att:hover,.mid:hover,.def:hover{
+    background-color: rgb(150, 181, 182);
+  }
+  .att{
+    column-gap: 40px;
+  }
+  .mid{
+    column-gap: 25px;
+  }
+  .def{
+    column-gap: 37px;
+  }
+  .options-div{
+    display: flex;
+    flex-direction: column;
+    row-gap: 3px;
+    margin-top: 5px;
   }
 
-  option {
-    padding: 8px;
-    font-size: 14px;
-    background-color: #fff;
-    color: #333;
-  }
-
-  option:hover {
-    background-color: #f0f0f0;
-  }
-
-
-  option:checked {
-    background-color: #e0e0e0;
-    color: #000;
-  }
 </style>
 
 <script>
