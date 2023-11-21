@@ -10,9 +10,7 @@ app.use(bodyParser.json());
 const con = createConnection()
 
 app.post("/api/addPlayer", (req, res)=>{
-    const name = req.body.map(item => item.name)
-    const pos = req.body.map(item => item.pos)
-    const poscat = req.body.map(item => item.poscat)
+    const {name, poscat, pos} = req.body
     console.log(name,pos,poscat)
     q = "INSERT INTO Players(name,positionCategory,position) values(?,?,?);"
     if(name==null || poscat==null || pos==null){
@@ -23,6 +21,7 @@ app.post("/api/addPlayer", (req, res)=>{
         con.query(q,[name, poscat, pos],(err,result)=>{
         if(err){
             console.error(err)
+            res.status(402).json({"Error":"Player Already Exist"})
             return;
         }
         else{
@@ -32,18 +31,26 @@ app.post("/api/addPlayer", (req, res)=>{
         })}
 })
 
-app.get('/api/available_player',(req,res)=>{
-    q="SELECT distinct(name) FROM Players;"
-    con.query(q,(error,result)=>{
-        if(error){
-            console.log(error)
-            res.status(400).json({"Error":"Mysql server error"})
-        }
-        else{
-            console.log(result)
-            res.status(200).json(result)
-        }
-    })
+app.get('/api/search_player',(req,res)=>{
+    let str = req.query.str
+    if(str!=''){
+        str = str+'%'
+        q="SELECT distinct(name) FROM Players WHERE name like ?;"
+        con.query(q,[str],(error,result)=>{
+            if(error){
+                console.log(error)
+                res.status(400).json({"Error":"Mysql server error"})
+            }
+            else{
+                console.log(result)
+                res.status(200).json(result)
+            }
+        })
+    }
+    else{
+        res.status(400).json({"message":"Enter String"})
+    }
+    
 })
 
 app.post('/api/get_my_players',(req,res)=>{

@@ -17,12 +17,11 @@
 
       </div>
       <div class="team-formation">
-
       </div>
     </div>
 
     <div class="available-players">
-      <input type="search" class="search" placeholder="Search">
+      <input type="search" class="search" v-model="searchValue" placeholder="Search" @input="searchPlayer(searchValue)">
       <div class="filter-class">
         <div class="filter-text"><p>Filter</p></div>
         <div v-for="position in positionFilter">
@@ -31,9 +30,8 @@
       </div>
       <div class="result-body">
         <div v-for="player in playerquery">
-          <div class="player-query">
-            {{ playerquery[1] }}
-            <input type="checkbox">
+          <div class="player-query" @click="selectPlayer(true)">  <!--To add selectPlayer method for toggle between upper box and lower box-->>
+            {{ player }}
           </div>
         </div>
       </div>
@@ -49,7 +47,7 @@
       <div class="available-body">
         <div v-for="player in selectedplayers">
           <div class="selected-player">
-            {{ playerquery[1] }}
+            {{ playerquery }}
           </div>
         </div>
       </div>
@@ -70,8 +68,50 @@
   <router-view></router-view>
 </template>
 
+<script>
+  import axios from 'axios'
+  export default {
+    data() {
+      return {
+        isAddPlayerHovered: false,
+        isViewDatabaseHovered: false,
+        positionFilter: ['A', 'M', 'D', 'G'],
+        playerquery:[],
+        playercount: 14,
+        searchValue: '',
+      };
+    },
+    methods: {
+      showAddPlayerText(state) {
+        this.isAddPlayerHovered = state;
+      },
+      showViewDatabaseText(state) {
+        this.isViewDatabaseHovered = state;
+      },
+      searchPlayer(){
+        const parameter = {
+          str:this.searchValue
+        }
+        this.playerquery = []
+        axios.get('http://localhost:5000/api/search_player',{params:parameter})
+        .then(response=>{
+          console.log(response.data)
+          response.data.forEach(element=>{
+            this.playerquery.push(element.name)
+          })
+        })
+        .catch(error=>{
+          console.log(error)
+        })
+        
+      }
+    },
+  };
+</script>
+
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;500;600&display=swap');
+
   body {
     margin: 5px;
     font-family: 'Poppins', sans-serif;
@@ -315,28 +355,19 @@
   .show {
     opacity: 1;
   }
-
+  
+  .player-query{
+    margin: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+    background-color: rgb(232, 232, 232);
+    border-radius: 5px;
+    transition: .1s;
+  }
+  .player-query:hover{
+    background-color: rgb(177, 177, 177);
+  }
 
 </style>
 
-<script>
-  export default {
-    data() {
-      return {
-        isAddPlayerHovered: false,
-        isViewDatabaseHovered: false,
-        positionFilter: ['A', 'M', 'D', 'G'],
-        playercount: 14,
-
-      };
-    },
-    methods: {
-      showAddPlayerText(state) {
-        this.isAddPlayerHovered = state;
-      },
-      showViewDatabaseText(state) {
-        this.isViewDatabaseHovered = state;
-      },
-    },
-  };
-</script>
