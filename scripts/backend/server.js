@@ -69,6 +69,36 @@ app.post('/api/get_my_players',(req,res)=>{
 
 app.get('/api/show_database',)
 
+app.get('/api/formations',(req,res)=>{
+    const player_n = req.query.no_p
+    q="SELECT formation FROM formations WHERE no_of_players=?;"
+    con.query(q,[player_n],(error,result)=>{
+        if(error){
+            console.log(error)
+        }
+        else{
+            formations = result.map(item=>item.formation)
+            console.log(formations)
+            res.status(200).json(formations)
+        }
+    })
+})
+
+app.get('/api/player_by_category',(req,res)=>{
+    const cat = req.query.category
+    q = "SELECT name FROM players WHERE positioncategory = ?;"
+    con.query(q,[cat],(error,result)=>{
+        if(error){
+            console.log(error)
+            res.status(400).json(error)
+        }
+        else{
+            console.log(result)
+            res.status(200).json(result)
+        }
+    })
+})
+
 app.listen(5000, ()=> {
     console.log("Listening on port 5000")
 })
