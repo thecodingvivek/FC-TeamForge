@@ -213,31 +213,17 @@
     transition: all 0.2s;
   }
   
-  .addPlayer:hover {
+  .addPlayer:hover, .viewDatabase:hover{
     transform: scale(1.1);
   }
 
-  .addPlayer:active{
+  .addPlayer:active, .viewDatabase:active{
     opacity: .7;
   }
 
-  .addPlayer i {
+  .addPlayer i, .viewDatabase i{
     font-size: 28px;
   }
-
-  .viewDatabase:hover {
-    transform: scale(1.1);
-    background-color: #851d30;
-  }
-
-  .viewDatabase:active{
-    opacity: .7;
-  }
-
-  .viewDatabase i {
-    font-size: 28px;
-  }
-
 
   .link-newplayer, .link-selectplayers, .link-database {
     color: #fff;
@@ -270,7 +256,7 @@
     opacity: 1;
   }
   
-  .player-query{
+  .player-query, .selected-player{
     margin: 10px;
     margin-top: 5px;
     margin-bottom: 5px;
@@ -278,7 +264,9 @@
     background-color: rgb(232, 232, 232);
     border-radius: 5px;
     transition: .1s;
+    cursor: pointer;
   }
-  .player-query:hover{
+  .player-query:hover, .selected-player:hover{
     background-color: rgb(177, 177, 177);
+    cursor: pointer;
   }

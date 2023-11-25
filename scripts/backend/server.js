@@ -33,13 +33,58 @@ app.post("/api/addPlayer", (req, res)=>{
 
 app.get('/api/search_player',(req,res)=>{
     let str = req.query.str
-    if(str!=''){
-        str = str+'%'
-        q="SELECT distinct(name) FROM Players WHERE name like ?;"
-        con.query(q,[str],(error,result)=>{
+    const present_p = [req.query.present_players]
+    let q;
+    if(req.query.present_players==null || req.query.present_players==undefined || req.query.present_players==[]){
+        if(str!=''){
+            str = str+'%'
+            q="SELECT distinct(name) FROM Players WHERE name like ?;"
+            con.query(q,[str],(error,result)=>{
+                if(error){
+                    console.log(error)
+                    res.status(400).json({"Error":"Mysql server error"})
+                }
+                else{
+                    console.log(result)
+                    res.status(200).json(result)
+                }
+            })
+        }
+        else{
+            res.status(400).json({"message":"Enter String"})
+        }
+    }
+    else{
+        if(str!=''){
+            str = str+'%'
+            q="SELECT distinct(name) FROM Players WHERE name like ? AND name NOT IN ?;"
+            con.query(q,[str,present_p],(error,result)=>{
+                if(error){
+                    console.log(error)
+                    res.status(400).json({"Error":"Mysql server error"})
+                }
+                else{
+                    console.log(result)
+                    res.status(200).json(result)
+                }
+            })
+        }
+        else{
+            res.status(400).json({"message":"Enter String"})
+        }
+    }
+})
+
+app.get('/api/player_by_category',(req,res)=>{
+    const cat = req.query.category
+    const present_p = [req.query.present_players]
+    let q;
+    if(req.query.present_players==null || req.query.present_players==undefined || req.query.present_players==[]){
+        q = "SELECT name FROM players WHERE positioncategory = ?;"
+        con.query(q,[cat],(error,result)=>{
             if(error){
                 console.log(error)
-                res.status(400).json({"Error":"Mysql server error"})
+                res.status(400).json(error)
             }
             else{
                 console.log(result)
@@ -48,10 +93,20 @@ app.get('/api/search_player',(req,res)=>{
         })
     }
     else{
-        res.status(400).json({"message":"Enter String"})
+        q = "SELECT name FROM players WHERE positioncategory = ? AND name NOT IN ?;"
+        con.query(q,[cat,present_p],(error,result)=>{
+            if(error){
+                console.log(error)
+                res.status(400).json(error)
+            }
+            else{
+                console.log(result)
+                res.status(200).json(result)
+            }
+        })
     }
-    
 })
+
 
 app.post('/api/get_my_players',(req,res)=>{
     let name = req.body.map(item => item.name)
@@ -80,21 +135,6 @@ app.get('/api/formations',(req,res)=>{
             formations = result.map(item=>item.formation)
             console.log(formations)
             res.status(200).json(formations)
-        }
-    })
-})
-
-app.get('/api/player_by_category',(req,res)=>{
-    const cat = req.query.category
-    q = "SELECT name FROM players WHERE positioncategory = ?;"
-    con.query(q,[cat],(error,result)=>{
-        if(error){
-            console.log(error)
-            res.status(400).json(error)
-        }
-        else{
-            console.log(result)
-            res.status(200).json(result)
         }
     })
 })

@@ -30,14 +30,14 @@
       </div>
       <div class="result-body">
         <div v-for="player in playerquery">
-          <div class="player-query" @click="selectPlayer(true)">  <!--To add selectPlayer method for toggle between upper box and lower box-->>
+          <div class="player-query" @click="selectPlayer(player,0)">  <!--To add selectPlayer method for toggle between upper box and lower box-->>
             {{ player }}
           </div>
         </div>
       </div>
       <div class="mid-section">
         <div class="avail-text">
-          <p>Available Players</p>
+          <p>Selected Players</p>
           <div class="playercount">{{ playercount }}</div>
         </div>
         <div class="submit" @click="getFormations()">
@@ -46,8 +46,8 @@
       </div>
       <div class="available-body">
         <div v-for="player in selectedplayers">
-          <div class="selected-player">
-            {{ playerquery }}
+          <div class="selected-player" @click="selectPlayer(player,1)">
+            {{ player }}
           </div>
         </div>
       </div>
@@ -99,7 +99,8 @@
         isViewDatabaseHovered: false,
         positionFilter: ['A', 'M', 'D', 'G'],
         playerquery:[],
-        playercount: 14,
+        selectedplayers:[],
+        playercount: 0,
         searchValue: '',
         isphone: false,
         formationquery: null,
@@ -119,7 +120,8 @@
       },
       searchPlayer(){
         const parameter = {
-          str:this.searchValue
+          str:this.searchValue,
+          present_players:this.selectedplayers
         }
         this.playerquery = []
         axios.get('http://localhost:5000/api/search_player',{params:parameter})
@@ -143,7 +145,7 @@
         }
       },
       getFormations(){
-        axios.get('http://localhost:5000/api/formations',{params:{no_p:7}})
+        axios.get('http://localhost:5000/api/formations',{params:{no_p:this.playercount}})
         .then(res=>{
           this.formationquery = res.data
           console.log(this.formationquery)
@@ -159,7 +161,7 @@
         else if(category=='M') cat='MidFielder'
         else if(category=='D') cat='Defender'
         else if(category=='G') cat='GoalKeeper'
-        axios.get('http://localhost:5000/api/player_by_category',{params:{category:cat}})
+        axios.get('http://localhost:5000/api/player_by_category',{params:{category:cat,present_players:this.selectedplayers}})
         .then(r=>{
           r.data.forEach(element=>{
             this.playerquery.push(element.name)
@@ -169,6 +171,21 @@
           console.log(error)
         })
       },
+      selectPlayer(p,flag){
+        if(flag==0){
+          this.selectedplayers.push(p)
+          this.playerquery = this.playerquery.filter(item => item!== p)
+        }
+        else if(flag==1){
+          this.selectedplayers = this.selectedplayers.filter(item => item !== p);
+          this.playerquery.push(p)
+        }
+        this.checkselectedplength();
+      },
+      checkselectedplength(){
+        if(this.selectedplayers==null || this.selectedplayers==undefined) this.playercount=0
+        else this.playercount=this.selectedplayers.length
+      }
     },
   };
 </script>
