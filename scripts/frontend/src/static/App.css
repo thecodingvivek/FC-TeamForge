@@ -1,0 +1,272 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;500;600&display=swap');
+
+  body {
+    margin: 5px;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .output-frame{
+    height: 50px;
+  }
+
+  .formation-list{
+    display: flex;
+    flex-direction: row;
+    column-gap: 20%;
+    max-width: 1100px;
+    max-height: 200px;
+    margin: 10px;
+    padding: 10px;
+    align-items: center;
+    color: #fff;
+  }
+
+  .available-players{
+    position: fixed;
+    top: 3%;
+    right: 2%;
+    height: 75%;
+    width: 320px;
+    max-width: 320px;
+    min-width: 265px;
+    background-color: #9BDEAC;
+    border-radius: 15px;
+  }
+
+  .search{
+    width: 90%;
+    margin-top: 5%;
+    margin-left: 5%;
+  }
+
+  .filter-class{
+    display: flex;
+    flex-direction: row;
+    column-gap: 5%;
+    margin-left: 5%;
+    margin-top: 5%;
+  }
+
+  .filter-text{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 5%;
+  }
+
+  .filter-text p{
+    margin: 0px;
+  }
+
+  .position{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: #851d30;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .position:hover{
+    transform: scale(1.1);
+  }
+
+  .position:active{
+    opacity: .7;
+  }
+
+  .result-body{
+    width: 90%;
+    height: 25%;
+    overflow-y: auto;
+    background-color: #fff;
+    margin-top: 5%;
+    margin-left: 5%;
+    border-radius: 15px;
+  }
+
+  .mid-section{
+    display: flex;
+    flex-direction: row;
+    column-gap: 20%;
+    align-items: center;
+    justify-content: center;
+    margin-right: 5%;
+    margin-left: 10%;
+  }
+
+  .avail-text{
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .playercount{
+    background-color: #EAD3C1;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .submit{
+    width: 35px;
+    height: 35px;
+    border-radius: 10px;
+    background-color: #851d30;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .submit:hover{
+    transform: scale(1.1);
+  }
+
+  .submit:active{
+    opacity: .7;
+  }
+
+  .button-div{
+    width: 200px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    position: absolute;
+    right: 0%;
+    bottom: 0%;
+    margin: 10px;
+  }
+
+  .available-body{
+    width: 90%;
+    height: 40%;
+    overflow-y: auto;
+    background-color: #fff;
+    margin-left: 5%;
+    border-radius: 15px;
+  }
+  @media screen and (max-height: 700px) {
+    .available-body{
+      height: 145px;
+    }
+  }
+  @media screen and (max-width: 700px) and (orientation: portrait) {
+    
+    .button-div{
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    position: absolute;
+    right: 0%;
+    bottom: 0%;
+    margin: 10px;
+    margin-right: 0px;
+    z-index: 1;
+  }
+  .selectPlayers i{
+    font-size: 28px;
+    color: #fff;
+  }
+  .selectPlayers, .addPlayer, .viewDatabase{
+    width: 75px;
+    height: 75px;
+    border-radius: 20%;
+    background-color: #851d30;
+    color: #fff;
+    font-size: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex-direction: column;
+    row-gap: 5px;
+  }
+  }
+
+  .selectPlayers, .addPlayer, .viewDatabase{
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    background-color: #851d30;
+    color: #fff;
+    font-size: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .addPlayer:hover, .viewDatabase:hover{
+    transform: scale(1.1);
+  }
+
+  .addPlayer:active, .viewDatabase:active{
+    opacity: .7;
+  }
+
+  .addPlayer i, .viewDatabase i{
+    font-size: 28px;
+  }
+
+  .link-newplayer, .link-selectplayers, .link-database {
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hoverText {
+    position: absolute;
+    bottom: 110%;
+    right: 10%;
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #1c1c1c;
+    white-space: nowrap;
+    opacity: 0;
+    text-align: center;
+    transition: opacity 0.2s;
+    pointer-events: none;
+  }
+
+  .hoverText p{
+    margin: 0px;
+    font-weight: 100;
+  }
+
+  .show {
+    opacity: 1;
+  }
+  
+  .player-query, .selected-player{
+    margin: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+    background-color: rgb(232, 232, 232);
+    border-radius: 5px;
+    transition: .1s;
+    cursor: pointer;
+  }
+  .player-query:hover, .selected-player:hover{
+    background-color: rgb(177, 177, 177);
+    cursor: pointer;
+  }
