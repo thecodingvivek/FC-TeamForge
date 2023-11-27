@@ -1,9 +1,9 @@
-const positions = {
+const positions= {
     'Goalkeeper': ['GK'],
     'Defender': ['RB', 'LB', 'CB'],
     'Midfielder': ['CDM', 'RM', 'LM', 'CM', 'CAM'],
     'Attacker': ['RW', 'LW', 'CF', 'ST']
-};
+    }
 
 function assignPlayersToFormation(players, formation) {
     const assignedPlayers = [];
@@ -55,4 +55,42 @@ function assignPlayersToFormation(players, formation) {
     return assignedPlayers;
 }
 
-module.exports = ({positions, assignPlayersToFormation})
+let l = assignPlayersToFormation([
+    {
+        "name": "Aravind",
+        "position": "LW",
+        "positioncategory": "Attacker"
+    },
+    {
+        "name": "Athithya",
+        "position": "LB",
+        "positioncategory": "Defender"
+    },
+    {
+        "name": "Midhru",
+        "position": "CDM",
+        "positioncategory": "Midfielder"
+    },
+    {
+        "name": "Sriram",
+        "position": "ST",
+        "positioncategory": "Attacker"
+    },
+    {
+        "name": "Thanus",
+        "position": "RB",
+        "positioncategory": "Defender"
+    },
+    {
+        "name": "Tharun",
+        "position": "GK",
+        "positioncategory": "Goalkeeper"
+    },
+    {
+        "name": "Thilak",
+        "position": "CAM",
+        "positioncategory": "Midfielder"
+    }
+],['GK', 'RB', 'LB', 'CB', 'CM', 'ST', 'ST'])
+console.log(l)
+//module.exports = (assignPlayersToFormation)

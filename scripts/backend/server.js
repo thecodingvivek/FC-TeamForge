@@ -2,12 +2,13 @@ const express = require("express")
 const bodyParser = require('body-parser');
 const cors = require("cors")
 const {createConnection} = require('./sqlconnect')
-const {positions ,assignpos} = require('./Algorithm')
+//const {assignPlayersToFormation} = require('./Algorithm')
 const app = express()
 app.use(cors())
 app.use(bodyParser.json());
 
 const con = createConnection()
+
 
 app.post("/api/addPlayer", (req, res)=>{
     const {name, poscat, pos} = req.body
