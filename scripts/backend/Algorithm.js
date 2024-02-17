@@ -1,96 +1,302 @@
-const positions= {
-    'Goalkeeper': ['GK'],
-    'Defender': ['RB', 'LB', 'CB'],
-    'Midfielder': ['CDM', 'RM', 'LM', 'CM', 'CAM'],
-    'Attacker': ['RW', 'LW', 'CF', 'ST']
-    }
+const { createConnection } = require("./sqlconnect");
+const con = createConnection();
 
-function assignPlayersToFormation(players, formation) {
-    const assignedPlayers = [];
-    const remainingPlayers = [...players];
-    const remainingFormation = [...formation];
+teams = { 0: {}, 1: {} };
+remaining_players = [];
 
-    // Loop through each position in the formation
-    for (const position of formation) {
-        // Find a player who has the exact position
-        const exactPositionPlayer = remainingPlayers.find(player => player.position === position);
+const defender = {
+  2: ["CB1", "CB2"],
+  3: ["LB", "CB", "RB"],
+  4: ["LB", "CB1", "CB2", "RB"],
+};
+const midfielder = {
+  1: ["CM"],
+  2: ["CM1", "CM2"],
+  3: ["LM", "CM", "RM"],
+  4: ["CAM", "CM1", "CM2", "CDM"],
+};
+const attacker = {
+  1: ["ST"],
+  2: ["ST1", "ST2"],
+  3: ["LW", "ST", "RW"],
+  4: ["LW", "ST1", "ST2", "RW"],
+};
 
-        if (exactPositionPlayer) {
-            exactPositionPlayer["assignedPosition"] = position;
-            assignedPlayers.push(exactPositionPlayer);
-
-            // Remove the player from the remaining players and the position from the formation
-            remainingPlayers.splice(remainingPlayers.indexOf(exactPositionPlayer), 1);
-            remainingFormation.splice(remainingFormation.indexOf(position), 1);
+async function formTeams(players, formation) {
+  for (let i of players) {
+    const result = await new Promise((resolve, reject) => {
+      con.query(
+        "SELECT name, position, positioncategory as catgry FROM players WHERE name=?",
+        [i],
+        (err, result) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
         }
-    }
+      );
+    });
+    for (let j of result) {
+      if (j.catgry == "Goalkeeper") {
+        //select a random number 1 or 2
+        let selectedTeam;
+        var randomNumber = Math.random();
+        if (randomNumber < 0.5) selectedTeam = 0;
+        else selectedTeam = 1;
 
-    // Loop through each position category in the remaining formation
-    for (const position of remainingFormation) {
-        // Find a player whose category includes the position
-        const positionCategoryPlayer = remainingPlayers.find(player => positions[player.positionCategory].includes(position));
-
-        if (positionCategoryPlayer) {
-            positionCategoryPlayer["assignedPosition"] = position;
-            assignedPlayers.push(positionCategoryPlayer);
-
-            // Remove the player from the remaining players and the position from the formation
-            remainingPlayers.splice(remainingPlayers.indexOf(positionCategoryPlayer), 1);
-            remainingFormation.splice(remainingFormation.indexOf(position), 1);
+        if (!teams[selectedTeam].hasOwnProperty("GK")) {
+          teams[selectedTeam]["GK"] = j.name;
+        } else if (!teams[Number(!selectedTeam)].hasOwnProperty("GK")) {
+          teams[Number(!selectedTeam)]["GK"] = j.name;
+        } else {
+          remaining_players.push(j);
         }
-    }
+      } else if (j.catgry == "Defender") {
+        //select a random number 1 or 2
+        let selectedTeam;
+        var randomNumber = Math.random();
+        if (randomNumber < 0.5) selectedTeam = 0;
+        else selectedTeam = 1;
 
-    // Loop through any remaining positions and assign unassigned players
-    for (const position of remainingFormation) {
-        const unassignedPlayers = remainingPlayers.filter(player => !player.assignedPosition);
-
-        if (unassignedPlayers.length > 0) {
-            const anyPlayer = unassignedPlayers.shift(); // Take the first unassigned player
-            anyPlayer["assignedPosition"] = position;
-            assignedPlayers.push(anyPlayer);
+        if (defender[formation[1]].includes(j.position)) {
+          if (!teams[selectedTeam].hasOwnProperty(j.position)) {
+            teams[selectedTeam][j.position] = j.name;
+          } else if (!teams[Number(!selectedTeam)].hasOwnProperty(j.position)) {
+            teams[Number(!selectedTeam)][j.position] = j.name;
+          } else {
+            //position found but full
+            remaining_players.push(j);
+          }
+        } else if (defender[formation[1]].includes(j.position + "1")) {
+          if (!teams[selectedTeam].hasOwnProperty(j.position + "1")) {
+            teams[selectedTeam][j.position + "1"] = j.name;
+          } else if (
+            !teams[Number(!selectedTeam)].hasOwnProperty(j.position + "1")
+          ) {
+            teams[Number(!selectedTeam)][j.position + "1"] = j.name;
+          } else {
+            //position found but full
+            remaining_players.push(j);
+          }
+        } else if (defender[formation[1]].includes(j.position + "2")) {
+          if (!teams[selectedTeam].hasOwnProperty(j.position + "2")) {
+            teams[selectedTeam][j.position + "2"] = j.name;
+          } else if (
+            !teams[Number(!selectedTeam)].hasOwnProperty(j.position + "2")
+          ) {
+            teams[Number(!selectedTeam)][j.position + "2"] = j.name;
+          } else {
+            //position found but full
+            remaining_players.push(j);
+          }
+        } else {
+          // position not found
+          remaining_players.push(j);
         }
-    }
+      } else if (j.catgry == "Midfielder") {
+        //select a random number 1 or 2
+        let selectedTeam;
+        var randomNumber = Math.random();
+        if (randomNumber < 0.5) selectedTeam = 0;
+        else selectedTeam = 1;
 
-    console.log(assignedPlayers);
-    return assignedPlayers;
+        if (midfielder[formation[2]].includes(j.position)) {
+          if (!teams[selectedTeam].hasOwnProperty(j.position)) {
+            teams[selectedTeam][j.position] = j.name;
+          } else if (!teams[Number(!selectedTeam)].hasOwnProperty(j.position)) {
+            teams[Number(!selectedTeam)][j.position] = j.name;
+          } else {
+            // position found but full
+            remaining_players.push(j);
+          }
+        } else if (midfielder[formation[2]].includes(j.position + "1")) {
+          if (!teams[selectedTeam].hasOwnProperty(j.position + "1")) {
+            teams[selectedTeam][j.position + "1"] = j.name;
+          } else if (
+            !teams[Number(!selectedTeam)].hasOwnProperty(j.position + "1")
+          ) {
+            teams[Number(!selectedTeam)][j.position + "1"] = j.name;
+          } else {
+            // position found but full
+            remaining_players.push(j);
+          }
+        } else if (midfielder[formation[2]].includes(j.position + "2")) {
+          if (!teams[selectedTeam].hasOwnProperty(j.position + "2")) {
+            teams[selectedTeam][j.position + "2"] = j.name;
+          } else if (
+            !teams[Number(!selectedTeam)].hasOwnProperty(j.position + "2")
+          ) {
+            teams[Number(!selectedTeam)][j.position + "2"] = j.name;
+          } else {
+            // position found but full
+            remaining_players.push(j);
+          }
+        } else {
+          // position not found
+          remaining_players.push(j);
+        }
+      } else if (j.catgry == "Attacker") {
+        //select a random number 1 or 2
+        let selectedTeam;
+        var randomNumber = Math.random();
+        if (randomNumber < 0.5) selectedTeam = 0;
+        else selectedTeam = 1;
+
+        if (attacker[formation[3]].includes(j.position)) {
+          if (!teams[selectedTeam].hasOwnProperty(j.position)) {
+            teams[selectedTeam][j.position] = j.name;
+          } else if (!teams[Number(!selectedTeam)].hasOwnProperty(j.position)) {
+            teams[Number(!selectedTeam)][j.position] = j.name;
+          } else {
+            // position found but full
+            remaining_players.push(j);
+          }
+        } else if (attacker[formation[3]].includes(j.position + "1")) {
+          if (!teams[selectedTeam].hasOwnProperty(j.position + "1")) {
+            teams[selectedTeam][j.position + "1"] = j.name;
+          } else if (
+            !teams[Number(!selectedTeam)].hasOwnProperty(j.position + "1")
+          ) {
+            teams[Number(!selectedTeam)][j.position + "1"] = j.name;
+          } else {
+            // position found but full
+            remaining_players.push(j);
+          }
+        } else if (attacker[formation[3]].includes(j.position + "2")) {
+          if (!teams[selectedTeam].hasOwnProperty(j.position + "2")) {
+            teams[selectedTeam][j.position + "2"] = j.name;
+          } else if (
+            !teams[Number(!selectedTeam)].hasOwnProperty(j.position + "2")
+          ) {
+            teams[Number(!selectedTeam)][j.position + "2"] = j.name;
+          } else {
+            // position found but full
+            remaining_players.push(j);
+          }
+        } else {
+          // position not found
+          remaining_players.push(j);
+        }
+      }
+    }
+  }
+  for (let i of remaining_players) {
+    let selectedTeam;
+    var randomNumber = Math.random();
+    if (randomNumber < 0.5) selectedTeam = 0;
+    else selectedTeam = 1;
+    if (i.catgry == "Goalkeeper") {
+      if (!teams[selectedTeam].hasOwnProperty("GK")) {
+        teams[selectedTeam]["GK"] = i.name;
+        remaining_players = remaining_players.filter(
+          (player) => player.name != i.name
+        );
+      } else if (!teams[Number(!selectedTeam)].hasOwnProperty("GK")) {
+        teams[Number(!selectedTeam)]["GK"] = i.name;
+        remaining_players = remaining_players.filter(
+          (player) => player.name != i.name
+        );
+      }
+    } else if (i.catgry == "Defender") {
+      for (let j of defender[formation[1]]) {
+        if (!teams[selectedTeam].hasOwnProperty(j)) {
+          teams[selectedTeam][j] = i.name;
+          remaining_players = remaining_players.filter(
+            (player) => player.name != i.name
+          );
+          break;
+        } else if (!teams[Number(!selectedTeam)].hasOwnProperty(j)) {
+          teams[Number(!selectedTeam)][j] = i.name;
+          remaining_players = remaining_players.filter(
+            (player) => player.name != i.name
+          );
+          break;
+        }
+      }
+    } else if (i.catgry == "Midfielder") {
+      for (let j of midfielder[formation[2]]) {
+        if (!teams[selectedTeam].hasOwnProperty(j)) {
+          teams[selectedTeam][j] = i.name;
+          remaining_players = remaining_players.filter(
+            (player) => player.name != i.name
+          );
+          break;
+        } else if (!teams[Number(!selectedTeam)].hasOwnProperty(j)) {
+          teams[Number(!selectedTeam)][j] = i.name;
+          remaining_players = remaining_players.filter(
+            (player) => player.name != i.name
+          );
+          break;
+        }
+      }
+    } else if (i.catgry == "Attacker") {
+      for (let j of attacker[formation[3]]) {
+        if (!teams[selectedTeam].hasOwnProperty(j)) {
+          teams[selectedTeam][j] = i.name;
+          remaining_players = remaining_players.filter(
+            (player) => player.name != i.name
+          );
+          break;
+        } else if (!teams[Number(!selectedTeam)].hasOwnProperty(j)) {
+          teams[Number(!selectedTeam)][j] = i.name;
+          remaining_players = remaining_players.filter(
+            (player) => player.name != i.name
+          );
+          break;
+        }
+      }
+    }
+  }
+  let selectedTeam;
+  if (!teams[0].hasOwnProperty("GK")) {
+    const p = remaining_players.shift();
+    teams[0]["GK"] = p.name;
+  } else if (!teams[1].hasOwnProperty("GK")) {
+    const p = remaining_players.shift();
+    teams[1]["GK"] = p.name;
+  }
+  for (let j of defender[formation[1]]) {
+    if (remaining_players.length == 0) break;
+    var randomNumber = Math.random();
+    if (randomNumber < 0.5) selectedTeam = 0;
+    else selectedTeam = 1;
+    if (!teams[selectedTeam].hasOwnProperty(j)) {
+      const p = remaining_players.shift();
+      teams[selectedTeam][j] = p.name;
+    } else if (!teams[Number(!selectedTeam)].hasOwnProperty(j)) {
+      const p = remaining_players.shift();
+      teams[Number(!selectedTeam)][j] = p.name;
+    }
+  }
+  for (let j of midfielder[formation[2]]) {
+    if (remaining_players.length == 0) break;
+    var randomNumber = Math.random();
+    if (randomNumber < 0.5) selectedTeam = 0;
+    else selectedTeam = 1;
+    if (!teams[selectedTeam].hasOwnProperty(j)) {
+      const p = remaining_players.shift();
+      teams[selectedTeam][j] = p.name;
+    } else if (!teams[Number(!selectedTeam)].hasOwnProperty(j)) {
+      const p = remaining_players.shift();
+      teams[Number(!selectedTeam)][j] = p.name;
+    }
+  }
+  for (let j of attacker[formation[3]]) {
+    if (remaining_players.length == 0) break;
+    var randomNumber = Math.random();
+    if (randomNumber < 0.5) selectedTeam = 0;
+    else selectedTeam = 1;
+    if (!teams[selectedTeam].hasOwnProperty(j)) {
+      const p = remaining_players.shift();
+      teams[selectedTeam][j] = p.name;
+    } else if (!teams[Number(!selectedTeam)].hasOwnProperty(j)) {
+      const p = remaining_players.shift();
+      teams[Number(!selectedTeam)][j] = p.name;
+    }
+  }
+  console.log("Final teams: ", teams);
 }
 
-let l = assignPlayersToFormation([
-    {
-        "name": "Aravind",
-        "position": "LW",
-        "positioncategory": "Attacker"
-    },
-    {
-        "name": "Athithya",
-        "position": "LB",
-        "positioncategory": "Defender"
-    },
-    {
-        "name": "Midhru",
-        "position": "CDM",
-        "positioncategory": "Midfielder"
-    },
-    {
-        "name": "Sriram",
-        "position": "ST",
-        "positioncategory": "Attacker"
-    },
-    {
-        "name": "Thanus",
-        "position": "RB",
-        "positioncategory": "Defender"
-    },
-    {
-        "name": "Tharun",
-        "position": "GK",
-        "positioncategory": "Goalkeeper"
-    },
-    {
-        "name": "Thilak",
-        "position": "CAM",
-        "positioncategory": "Midfielder"
-    }
-],['GK', 'RB', 'LB', 'CB', 'CM', 'ST', 'ST'])
-console.log(l)
-//module.exports = (assignPlayersToFormation)
+module.exports = formTeams;
