@@ -113,25 +113,21 @@
           </div>
         </div>
       </div>
-      <div class="button-div" v-if="isphone == true">
-        <div class="selectPlayers">
-          <div style="font-size: 8px; text-align: center">
-            Select<br />Players
-          </div>
+      <div class="button-div" v-if="isphone==true">
+        <div class="selectPlayers-mobile">
+          <div style="font-size: 8px; text-align: center;">Select<br>Players</div>
           <router-link to="/selectPlayers" class="link-selectplayers">
             <i class="fas fa-user" style="text-align: center"></i>
           </router-link>
         </div>
-        <div class="addPlayer">
-          <div style="font-size: 8px; text-align: center">Add<br />Player</div>
+        <div class="addPlayer-mobile">
+          <div style="font-size: 8px; text-align: center;">Add<br>Player</div>
           <router-link to="/newplayer" class="link-newplayer">
             <i class="fas fa-plus"></i>
           </router-link>
         </div>
-        <div class="viewDatabase">
-          <div style="font-size: 8px; text-align: center">
-            View<br />Databse
-          </div>
+        <div class="viewDatabase-mobile">
+          <div style="font-size: 8px; text-align: center;">View<br>Databse</div>
           <router-link to="/database" class="link-database">
             <i class="fas fa-database"></i>
           </router-link>

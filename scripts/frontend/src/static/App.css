@@ -250,6 +250,92 @@
     width: 0px;
     display: none;
   }
+
+  /* Rechecking the visuals error*/
+  .addPlayer {
+    position: fixed;
+    bottom: 3%;
+    right: 5%;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    background-color: #851d30;
+    color: #fff;
+    font-size: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .viewDatabase {
+    position: fixed;
+    bottom: 3%;
+    right: 13.5%;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    background-color: #851d30;
+    color: #fff;
+    font-size: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .viewDatabase:hover, .addPlayer:hover{
+    transform: scale(1.1);
+    background-color: #851d30;
+  }
+  .viewDatabase:active, .addPlayer:active{
+    opacity: .7;
+  }
+  .viewDatabase i , .addPlayer i{
+    font-size: 28px;
+  }
+  .link-newplayer {
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .link-database {
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hoverText {
+    position: absolute;
+    bottom: 30%;
+    right: 115%;
+    font-size: 24px;
+    bottom: 110%;
+    right: 10%;
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #1c1c1c;
+    white-space: nowrap;
+    opacity: 0;
+    text-align: center;
+    transition: opacity 0.2s;
+    pointer-events: none;
+  }
+  .hoverText p{
+    margin: 0px;
+    font-weight: 100;
+  }
+  .show {
+    opacity: 1;
+  }
+  /*inside this container*/
+
   @media screen and (max-height: 700px) {
     .available-body{
       height: 145px;
@@ -269,14 +355,14 @@
     margin-right: 0px;
     z-index: 1;
   }
-  .selectPlayers i{
+  .selectPlayers-mobile i{
     font-size: 28px;
     color: #fff;
   }
-  .selectPlayers, .addPlayer, .viewDatabase{
+  .selectPlayers-mobile, .addPlayer-mobile, .viewDatabase-mobile{
     width: 75px;
     height: 75px;
-    border-radius: 20%;
+    border-radius: 25%;
     background-color: #851d30;
     color: #fff;
     font-size: 48px;
@@ -289,32 +375,16 @@
     flex-direction: column;
     row-gap: 5px;
   }
-  }
-
-  .selectPlayers, .addPlayer, .viewDatabase{
-    width: 75px;
-    height: 75px;
-    border-radius: 50%;
-    background-color: #851d30;
-    color: #fff;
-    font-size: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
   
-  .addPlayer:hover, .viewDatabase:hover{
+  .addPlayer-mobile:hover, .viewDatabase-mobile:hover{
     transform: scale(1.1);
   }
 
-  .addPlayer:active, .viewDatabase:active{
+  .addPlayer-mobile:active, .viewDatabase-mobile:active{
     opacity: .7;
   }
 
-  .addPlayer i, .viewDatabase i{
+  .addPlayer-mobile i, .viewDatabase-mobile i{
     font-size: 28px;
   }
 
@@ -363,3 +433,33 @@
     background-color: rgb(177, 177, 177);
     cursor: pointer;
   }
+
+  .formation-title{
+    text-align: center;
+    font-size: 17px;
+    margin: 5px;
+
+    background-color: #851d30;
+    border-radius: 8px;
+    color: white;
+  }
+
+  .output-frame{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 75vh;
+  }
+
+  .team-formation{
+    width: 100%;
+    height: 45%;
+    margin: 10px;
+    border-radius: 15px;
+    background-color: #9BDEAC;
+    border: #851d30 2px solid;
+  }
+
+  }
+
+  

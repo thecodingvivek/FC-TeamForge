@@ -5,7 +5,7 @@ function createConnection() {
   const con = sql.createConnection({
     host: "localhost",
     user: "root",
-    password: "THANUSmysql@2005",
+    password: "2005",
     database: "FC",
   });
 
