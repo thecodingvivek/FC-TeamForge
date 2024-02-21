@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const { createConnection } = require("./sqlconnect");
-//const {assignPlayersToFormation} = require('./Algorithm')
+const { formTeams } = require("./Algorithm");
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
@@ -139,12 +139,14 @@ app.get("/api/formations", (req, res) => {
   });
 });
 
-app.post('/api/teams',(req,res)=>{
-
-  const {players, formation} = req.body;
-  console.log(players,formation)
-
-})
+app.post("/api/teams", (req, res) => {
+  const { players, formation } = req.body;
+  formTeams(players, formation).then((t) => {
+    console.log(t);
+    if (t[0] != {} && t[1] != {}) res.status(200).json({ Team: t });
+    else res.status(500).json({ Error: "Internal server error!" });
+  });
+});
 
 app.listen(5000, () => {
   console.log("Listening on port 5000");

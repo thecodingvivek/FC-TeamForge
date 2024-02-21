@@ -420,6 +420,7 @@
   }
   
   .player-query, .selected-player{
+    display: inline;
     margin: 10px;
     margin-top: 5px;
     margin-bottom: 5px;
