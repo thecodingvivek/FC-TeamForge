@@ -14,6 +14,27 @@
     width: 100vw;
     padding: 15px;
   }
+
+  .team-col{
+    display: flex;
+    flex-direction: column;
+    row-gap: 50px;
+    margin-top: 100px;
+  }
+
+  .team-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+
+  .player{
+    padding: 5px 8px 5px 8px;
+    background-color: #EAD3C1;
+    border-radius: 5px;
+    border: #851d30 1px solid;
+  }
+
   .side-body{
     height: 96vh;
     display: flex;

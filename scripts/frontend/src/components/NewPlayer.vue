@@ -15,7 +15,7 @@
         </div>
         <div class="input-div">
           <div class="label">POSITION</div>
-          <select name="positions" id="pos" class="options" v-model="selectedCategory">
+          <select name="positions" id="pos" onclick="handleCatSelect" class="options" v-model="selectedCategory">
             <option value="Attacker" >Attacker</option>
             <option value="Defender">Defender</option>
             <option value="Midfielder">Midfielder</option>
@@ -46,7 +46,7 @@
         </div>
         <div class="input-div">
           <div class="label">POSITION</div>
-          <select name="positions" id="pos" class="options" v-model="selectedCategory">
+          <select name="positions" id="pos" value="" class="options" v-model="selectedCategory">
             <option value="Attacker" >Attacker</option>
             <option value="Defender">Defender</option>
             <option value="Midfielder">Midfielder</option>
@@ -115,6 +115,9 @@
           this.isphone = false;
         }
       },
+      handleCatSelect(){
+
+      }
     }
   }
 </script>
