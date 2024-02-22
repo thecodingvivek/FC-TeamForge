@@ -41,14 +41,20 @@
         <div class="team-formation">
           <div class="team-col">
             <div v-for="pos in team1" class="team-row">
-              <div v-for="j in pos" class="player">{{ j }}</div>
+              <div v-for="j in Object.keys(pos)" class="player">
+                <div style="text-align: center">{{ j }}</div>
+                <div class="posi-text">{{ pos[j] }}</div>
+              </div>
             </div>
           </div>
         </div>
         <div class="team-formation">
           <div class="team-col">
             <div v-for="pos in team2" class="team-row">
-              <div v-for="j in pos" class="player">{{ j }}</div>
+              <div v-for="j in Object.keys(pos)" class="player">
+                <div style="text-align: center">{{ j }}</div>
+                <div class="posi-text">{{ pos[j] }}</div>
+              </div>
             </div>
           </div>
         </div>
@@ -272,8 +278,8 @@ export default {
       else this.playercount = this.selectedplayers.length;
     },
     formTeams() {
-      this.team1 = []
-      this.team2 = []
+      this.team1 = [];
+      this.team2 = [];
       const defender = {
         2: ["CB1", "CB2"],
         3: ["LB", "CB", "RB"],

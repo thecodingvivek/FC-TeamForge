@@ -22,7 +22,6 @@ async function formTeams(players, formation) {
     3: ["LW", "ST", "RW"],
     4: ["LW", "ST1", "ST2", "RW"],
   };
-  console.log(players, formation);
   const result = await new Promise((resolve, reject) => {
     con.query(
       "SELECT name, position, positioncategory as catgry FROM players WHERE name in ?",
@@ -38,7 +37,6 @@ async function formTeams(players, formation) {
       }
     );
   });
-  console.log("R:", result);
   for (let j of result) {
     if (j.catgry == "Goalkeeper") {
       //select a random number 1 or 2
@@ -249,7 +247,6 @@ async function formTeams(players, formation) {
       }
     }
   }
-  console.log("Remaining:", remaining_players);
   let selectedTeam;
   if (remaining_players.length != 0) {
     if (!teams[0].hasOwnProperty("GK")) {
@@ -260,45 +257,52 @@ async function formTeams(players, formation) {
       teams[1]["GK"] = p.name;
     }
   }
-  for (let j of defender[formation[1]]) {
+  console.log("TEAM BEFORE: ",teams, "remain: ",remaining_players)
+  for (let c = 0; c < 2; c++) {
     if (remaining_players.length == 0) break;
-    var randomNumber = Math.random();
-    if (randomNumber < 0.5) selectedTeam = 0;
-    else selectedTeam = 1;
-    if (!teams[selectedTeam].hasOwnProperty(j)) {
-      const p = remaining_players.shift();
-      teams[selectedTeam][j] = p.name;
-    } else if (!teams[Number(!selectedTeam)].hasOwnProperty(j)) {
-      const p = remaining_players.shift();
-      teams[Number(!selectedTeam)][j] = p.name;
+    for (let j of defender[formation[1]]) {
+      if (remaining_players.length == 0) break;
+      var randomNumber = Math.random();
+      if (randomNumber < 0.5) selectedTeam = 0;
+      else selectedTeam = 1;
+      if (!teams[selectedTeam].hasOwnProperty(j)) {
+        const p = remaining_players.shift();
+        teams[selectedTeam][j] = p.name;
+      } else if (!teams[Number(!selectedTeam)].hasOwnProperty(j)) {
+        const p = remaining_players.shift();
+        teams[Number(!selectedTeam)][j] = p.name;
+      }
+    }
+    for (let j of midfielder[formation[2]]) {
+      if (remaining_players.length == 0) break;
+      var randomNumber = Math.random();
+      if (randomNumber < 0.5) selectedTeam = 0;
+      else selectedTeam = 1;
+      if (!teams[selectedTeam].hasOwnProperty(j)) {
+        const p = remaining_players.shift();
+        teams[selectedTeam][j] = p.name;
+      } else if (!teams[Number(!selectedTeam)].hasOwnProperty(j)) {
+        const p = remaining_players.shift();
+        teams[Number(!selectedTeam)][j] = p.name;
+      }
+    }
+    for (let j of attacker[formation[3]]) {
+      if (remaining_players.length == 0) break;
+      var randomNumber = Math.random();
+      if (randomNumber < 0.5) selectedTeam = 0;
+      else selectedTeam = 1;
+      if (!teams[selectedTeam].hasOwnProperty(j)) {
+        const p = remaining_players.shift();
+        console.log("P:", p);
+        teams[selectedTeam][j] = p.name;
+      } else if (!teams[Number(!selectedTeam)].hasOwnProperty(j)) {
+        const p = remaining_players.shift();
+        console.log("P:", p);
+        teams[Number(!selectedTeam)][j] = p.name;
+      }
     }
   }
-  for (let j of midfielder[formation[2]]) {
-    if (remaining_players.length == 0) break;
-    var randomNumber = Math.random();
-    if (randomNumber < 0.5) selectedTeam = 0;
-    else selectedTeam = 1;
-    if (!teams[selectedTeam].hasOwnProperty(j)) {
-      const p = remaining_players.shift();
-      teams[selectedTeam][j] = p.name;
-    } else if (!teams[Number(!selectedTeam)].hasOwnProperty(j)) {
-      const p = remaining_players.shift();
-      teams[Number(!selectedTeam)][j] = p.name;
-    }
-  }
-  for (let j of attacker[formation[3]]) {
-    if (remaining_players.length == 0) break;
-    var randomNumber = Math.random();
-    if (randomNumber < 0.5) selectedTeam = 0;
-    else selectedTeam = 1;
-    if (!teams[selectedTeam].hasOwnProperty(j)) {
-      const p = remaining_players.shift();
-      teams[selectedTeam][j] = p.name;
-    } else if (!teams[Number(!selectedTeam)].hasOwnProperty(j)) {
-      const p = remaining_players.shift();
-      teams[Number(!selectedTeam)][j] = p.name;
-    }
-  }
+  console.log("Remaining: ", remaining_players);
   console.log(teams);
   return teams;
 }
