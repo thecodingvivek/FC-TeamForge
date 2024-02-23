@@ -38,8 +38,26 @@
         </div>
       </div>
       <div class="output-frame">
-        <div class="team-formation"></div>
-        <div class="team-formation"></div>
+        <div class="team-formation">
+          <div class="team-col">
+            <div v-for="pos in team1" class="team-row">
+              <div v-for="j in Object.keys(pos)" class="player">
+                <div style="text-align: center">{{ j }}</div>
+                <div class="posi-text">{{ pos[j] }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="team-formation">
+          <div class="team-col">
+            <div v-for="pos in team2" class="team-row">
+              <div v-for="j in Object.keys(pos)" class="player">
+                <div style="text-align: center">{{ j }}</div>
+                <div class="posi-text">{{ pos[j] }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="side-body">
@@ -113,21 +131,25 @@
           </div>
         </div>
       </div>
-      <div class="button-div" v-if="isphone==true">
-        <div class="selectPlayers-mobile">
-          <div style="font-size: 8px; text-align: center;">Select<br>Players</div>
+      <div class="button-div" v-if="isphone == true">
+        <div class="selectPlayers">
+          <div style="font-size: 8px; text-align: center">
+            Select<br />Players
+          </div>
           <router-link to="/selectPlayers" class="link-selectplayers">
             <i class="fas fa-user" style="text-align: center"></i>
           </router-link>
         </div>
-        <div class="addPlayer-mobile">
-          <div style="font-size: 8px; text-align: center;">Add<br>Player</div>
+        <div class="addPlayer">
+          <div style="font-size: 8px; text-align: center">Add<br />Player</div>
           <router-link to="/newplayer" class="link-newplayer">
             <i class="fas fa-plus"></i>
           </router-link>
         </div>
-        <div class="viewDatabase-mobile">
-          <div style="font-size: 8px; text-align: center;">View<br>Databse</div>
+        <div class="viewDatabase">
+          <div style="font-size: 8px; text-align: center">
+            View<br />Databse
+          </div>
           <router-link to="/database" class="link-database">
             <i class="fas fa-database"></i>
           </router-link>
@@ -161,8 +183,8 @@ export default {
         Attacker: ["RW", "LW", "CF", "ST"],
       },
       showTeam: true,
-      team1: {},
-      team2: {},
+      team1: [],
+      team2: [],
     };
   },
   mounted() {
@@ -256,17 +278,78 @@ export default {
       else this.playercount = this.selectedplayers.length;
     },
     formTeams() {
+      this.team1 = [];
+      this.team2 = [];
+      const defender = {
+        2: ["CB1", "CB2"],
+        3: ["LB", "CB", "RB"],
+        4: ["LB", "CB1", "CB2", "RB"],
+      };
+      const midfielder = {
+        1: ["CM"],
+        2: ["CM1", "CM2"],
+        3: ["LM", "CM", "RM"],
+        4: ["CAM", "CM1", "CM2", "CDM"],
+      };
+      const attacker = {
+        1: ["ST"],
+        2: ["ST1", "ST2"],
+        3: ["LW", "ST", "RW"],
+        4: ["LW", "ST1", "ST2", "RW"],
+      };
       this.showTeam = true;
-      console.log(this.selectedFormation);
-      console.log(this.selectedplayers)
       const catl = this.selectedFormation.split("-");
-      const formationToSend = {
-        "Goalkeeper":catl[0],
-        "Defender":catl[1],
-        "Midfielder":catl[2],
-        "Attacker":catl[3]
-      }
-
+      console.log("selected Players: ", this.selectedplayers);
+      console.log("catl: ", catl);
+      let Team1, Team2;
+      axios
+        .post("http://localhost:5000/api/teams", {
+          players: this.selectedplayers,
+          formation: catl,
+        })
+        .then((response) => {
+          Team1 = response.data.Team[0];
+          Team2 = response.data.Team[1];
+          console.log(Team1["GK"], Team2);
+          for (let i = 0; i < 4; i++) {
+            if (i == 3) {
+              this.team1.push({ GK: Team1["GK"] });
+              this.team2.push({ GK: Team2["GK"] });
+            } else if (i == 2) {
+              let d1 = {};
+              let d2 = {};
+              for (let j of defender[catl[1]]) {
+                d1[j] = Team1[j];
+                d2[j] = Team2[j];
+              }
+              this.team1.push(d1);
+              this.team2.push(d2);
+            } else if (i == 1) {
+              let m1 = {};
+              let m2 = {};
+              for (let j of midfielder[catl[2]]) {
+                m1[j] = Team1[j];
+                m2[j] = Team2[j];
+              }
+              this.team1.push(m1);
+              this.team2.push(m2);
+            } else if (i == 0) {
+              let a1 = {};
+              let a2 = {};
+              for (let j of attacker[catl[3]]) {
+                a1[j] = Team1[j];
+                a2[j] = Team2[j];
+              }
+              this.team1.push(a1);
+              this.team2.push(a2);
+            }
+          }
+          console.log("TEAM 1:", this.team1);
+          console.log("TEAM 2:", this.team2);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };

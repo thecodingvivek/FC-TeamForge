@@ -5,12 +5,13 @@ function createConnection() {
   const con = sql.createConnection({
     host: "localhost",
     user: "root",
-    password: "2005",
+    password: "THANUSmysql@2005",
     database: "FC",
   });
 
   con.connect((error) => {
     if (error) {
+      console.log(error);
       console.error("Couldn't connect to SQL Database");
     } else {
       console.log("Connected to SQL Database");
