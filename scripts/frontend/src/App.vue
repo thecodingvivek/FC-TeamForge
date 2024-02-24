@@ -14,7 +14,7 @@
           Select Formation
         </div>
         <div v-else class="formation-title">
-          At Least 7 Players must be selected
+          At Least 6 Players must be selected
         </div>
         <div class="formation-list">
           <div v-for="formation in formationquery">
@@ -163,6 +163,7 @@
 
 <script>
 import axios from "axios";
+import NGROK_TUNNEL from "../public/constants.js";
 export default {
   data() {
     return {
@@ -205,7 +206,9 @@ export default {
       };
       this.playerquery = [];
       axios
-        .get("http://localhost:5000/api/search_player", { params: parameter })
+        .get(NGROK_TUNNEL + "/api/search_player", {
+          params: parameter,
+        })
         .then((response) => {
           console.log(response.data);
           response.data.forEach((element) => {
@@ -228,7 +231,7 @@ export default {
     },
     getFormations() {
       axios
-        .get("http://localhost:5000/api/formations", {
+        .get(NGROK_TUNNEL + "/api/formations", {
           params: { no_p: this.playercount, selected_p: this.selectedplayers },
         })
         .then((res) => {
@@ -248,10 +251,11 @@ export default {
       else if (category == "D") cat = "Defender";
       else if (category == "G") cat = "GoalKeeper";
       axios
-        .get("http://localhost:5000/api/player_by_category", {
+        .get(NGROK_TUNNEL + "/api/player_by_category", {
           params: { category: cat, present_players: this.selectedplayers },
         })
         .then((r) => {
+          console.log("Hi");
           r.data.forEach((element) => {
             this.playerquery.push(element.name);
           });
@@ -303,7 +307,7 @@ export default {
       console.log("catl: ", catl);
       let Team1, Team2;
       axios
-        .post("http://localhost:5000/api/teams", {
+        .post(NGROK_TUNNEL + "/api/teams", {
           players: this.selectedplayers,
           formation: catl,
         })

@@ -6,6 +6,8 @@ const { formTeams } = require("./Algorithm");
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
+require('dotenv').config();
+const ngrok = require('ngrok')
 
 const con = createConnection();
 
@@ -147,6 +149,14 @@ app.post("/api/teams", (req, res) => {
     else res.status(500).json({ Error: "Internal server error!" });
   });
 });
+
+(async () => {
+  const url = await ngrok.connect({
+      addr: process.env.PORT,
+      authtoken: process.env.NGROK_AUTH_TOKEN, // Replace with your Ngrok auth token
+  });
+  console.log(`[MESSAGE]: Ngrok tunnel is live at ${url}`);
+})();
 
 app.listen(5000, () => {
   console.log("Listening on port 5000");
