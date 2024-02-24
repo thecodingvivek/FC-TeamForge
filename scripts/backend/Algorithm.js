@@ -248,17 +248,17 @@ async function formTeams(players, formation) {
     }
   }
   let selectedTeam;
-  if (remaining_players.length != 0) {
-    if (!teams[0].hasOwnProperty("GK")) {
-      const p = remaining_players.shift();
-      teams[0]["GK"] = p.name;
-    } else if (!teams[1].hasOwnProperty("GK")) {
-      const p = remaining_players.shift();
-      teams[1]["GK"] = p.name;
-    }
-  }
-  console.log("TEAM BEFORE: ",teams, "remain: ",remaining_players)
+  console.log("TEAM BEFORE: ", teams, "remain: ", remaining_players);
   for (let c = 0; c < 2; c++) {
+    if (remaining_players.length != 0) {
+      if (!teams[0].hasOwnProperty("GK")) {
+        const p = remaining_players.shift();
+        teams[0]["GK"] = p.name;
+      } else if (!teams[1].hasOwnProperty("GK")) {
+        const p = remaining_players.shift();
+        teams[1]["GK"] = p.name;
+      }
+    }
     if (remaining_players.length == 0) break;
     for (let j of defender[formation[1]]) {
       if (remaining_players.length == 0) break;

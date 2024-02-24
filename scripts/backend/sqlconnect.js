@@ -1,11 +1,12 @@
 // sqlconnect.js
 const sql = require("mysql2");
+require('dotenv').config();
 
 function createConnection() {
   const con = sql.createConnection({
     host: "localhost",
     user: "root",
-    password: "THANUSmysql@2005",
+    password: process.env.DB_PASS,
     database: "FC",
   });
 
