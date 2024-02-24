@@ -39,6 +39,7 @@
       </div>
       <div class="output-frame">
         <div class="team-formation">
+          <div class="formation-team-title">{{ this.displayFormation }}</div>
           <div class="team-col">
             <div v-for="pos in team1" class="team-row">
               <div v-for="j in Object.keys(pos)" class="player">
@@ -49,6 +50,7 @@
           </div>
         </div>
         <div class="team-formation">
+          <div class="formation-team-title">{{ this.displayFormation }}</div>
           <div class="team-col">
             <div v-for="pos in team2" class="team-row">
               <div v-for="j in Object.keys(pos)" class="player">
@@ -78,11 +80,13 @@
           </div>
         </div>
         <div class="result-body">
-          <div v-for="player in playerquery">
-            <div class="player-query" @click="selectPlayer(player, 0)">
-              <!--To add selectPlayer method for toggle between upper box and lower box-->
-              {{ player }}
-            </div>
+          <div
+            class="player-qu"
+            @click="selectPlayer(player, 0)"
+            v-for="player in playerquery"
+          >
+            <!--To add selectPlayer method for toggle between upper box and lower box-->
+            {{ player }}
           </div>
         </div>
         <div class="mid-section">
@@ -95,10 +99,12 @@
           </div>
         </div>
         <div class="available-body">
-          <div v-for="player in selectedplayers">
-            <div class="selected-player" @click="selectPlayer(player, 1)">
-              {{ player }}
-            </div>
+          <div
+            class="selected-player"
+            @click="selectPlayer(player, 1)"
+            v-for="player in selectedplayers"
+          >
+            {{ player }}
           </div>
         </div>
       </div>
@@ -158,6 +164,7 @@ export default {
       playerquery: [],
       selectedplayers: [],
       selectedFormation: "",
+      displayFormation: "",
       playercount: 0,
       searchValue: "",
       isphone: false,
@@ -212,6 +219,10 @@ export default {
       }
     },
     getFormations() {
+      this.selectedFormation = "";
+      this.displayFormation = "";
+      this.team1 = [];
+      this.team2 = [];
       axios
         .get(NGROK_TUNNEL + "/api/formations", {
           params: { no_p: this.playercount, selected_p: this.selectedplayers },
@@ -264,6 +275,7 @@ export default {
       else this.playercount = this.selectedplayers.length;
     },
     formTeams() {
+      this.displayFormation = this.selectedFormation;
       this.team1 = [];
       this.team2 = [];
       const defender = {
@@ -343,4 +355,21 @@ export default {
 
 <style>
 @import url("./static/App.css");
+.player-qu,
+.selected-player {
+  background-color: rgb(232, 232, 232);
+  transition: 0.1s;
+  cursor: pointer;
+  width: 98%;
+  border-radius: 6px;
+  margin-left: auto;
+  margin-right: auto;
+  user-select: none;
+}
+.player-qu:hover,
+.selected-player:hover {
+  background-color: rgb(201, 201, 201);
+  transform: scale(1.02);
+  cursor: pointer;
+}
 </style>
