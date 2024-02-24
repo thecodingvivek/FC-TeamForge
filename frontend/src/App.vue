@@ -196,6 +196,9 @@ export default {
       this.playerquery = [];
       axios
         .get(NGROK_TUNNEL + "/api/search_player", {
+          headers: {
+            "ngrok-skip-browser-warning": "true",
+          },
           params: parameter,
         })
         .then((response) => {
@@ -225,6 +228,9 @@ export default {
       this.team2 = [];
       axios
         .get(NGROK_TUNNEL + "/api/formations", {
+          headers: {
+            "ngrok-skip-browser-warning": "true",
+          },
           params: { no_p: this.playercount, selected_p: this.selectedplayers },
         })
         .then((res) => {
@@ -245,6 +251,9 @@ export default {
       else if (category == "G") cat = "GoalKeeper";
       axios
         .get(NGROK_TUNNEL + "/api/player_by_category", {
+          headers: {
+            "ngrok-skip-browser-warning": "true",
+          },
           params: { category: cat, present_players: this.selectedplayers },
         })
         .then((r) => {
