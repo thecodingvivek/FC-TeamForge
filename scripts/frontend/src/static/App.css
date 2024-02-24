@@ -18,7 +18,7 @@ body {
   display: flex;
   flex-direction: column;
   row-gap: 50px;
-  margin-top: 100px;
+  margin-top: 60px;
 }
 
 .team-row {
@@ -190,6 +190,11 @@ body {
 
 .result-body {
   width: 90%;
+  padding-top: 3px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: center;
   height: 170px;
   overflow-y: scroll;
   background-color: #fff;
@@ -263,6 +268,11 @@ body {
 }
 
 .available-body {
+  padding-top: 3px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: center;
   width: 90%;
   height: 220px;
   overflow-y: scroll;
