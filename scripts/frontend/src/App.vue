@@ -78,11 +78,13 @@
           </div>
         </div>
         <div class="result-body">
-          <div v-for="player in playerquery">
-            <div class="player-query" @click="selectPlayer(player, 0)">
-              <!--To add selectPlayer method for toggle between upper box and lower box-->
-              {{ player }}
-            </div>
+          <div
+            class="player-qu"
+            @click="selectPlayer(player, 0)"
+            v-for="player in playerquery"
+          >
+            <!--To add selectPlayer method for toggle between upper box and lower box-->
+            {{ player }}
           </div>
         </div>
         <div class="mid-section">
@@ -95,10 +97,12 @@
           </div>
         </div>
         <div class="available-body">
-          <div v-for="player in selectedplayers">
-            <div class="selected-player" @click="selectPlayer(player, 1)">
-              {{ player }}
-            </div>
+          <div
+            class="selected-player"
+            @click="selectPlayer(player, 1)"
+            v-for="player in selectedplayers"
+          >
+            {{ player }}
           </div>
         </div>
       </div>
@@ -361,4 +365,21 @@ export default {
 
 <style>
 @import url("./static/App.css");
+.player-qu,
+.selected-player {
+  background-color: rgb(232, 232, 232);
+  transition: 0.1s;
+  cursor: pointer;
+  width: 98%;
+  border-radius: 6px;
+  margin-left: auto;
+  margin-right: auto;
+  user-select: none;
+}
+.player-qu:hover,
+.selected-player:hover {
+  background-color: rgb(201, 201, 201);
+  transform: scale(1.02);
+  cursor: pointer;
+}
 </style>
