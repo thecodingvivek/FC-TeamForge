@@ -47,7 +47,7 @@
     </div>
   </div>
 
-  <div class="main-div" v-if="isphone == true">
+  <div class="main-div">
     <div id="closebtn" @click="confirmClose">
       <router-link to="/" id="close">
         <i class="fas fa-times"></i>
@@ -89,7 +89,6 @@
       </div>
     </div>
 
-    <!-- Display different blocks based on the selected option -->
     <div v-if="selectedCategory !== ''">
       <div class="radio-class">
         <div v-for="position in positionCategories[selectedCategory]">

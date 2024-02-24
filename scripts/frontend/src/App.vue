@@ -110,32 +110,18 @@
       </div>
 
       <div class="button-div" v-if="isphone == false">
-        <div
-          class="addPlayer"
-          @mouseover="showAddPlayerText(true)"
-          @mouseout="showAddPlayerText(false)"
-        >
-          <router-link to="/newplayer" class="link-newplayer">
+        <router-link to="/newplayer" class="link-newplayer">
+          <div
+            class="addPlayer"
+            @mouseover="showAddPlayerText(true)"
+            @mouseout="showAddPlayerText(false)"
+          >
             <i class="fas fa-plus"></i>
-          </router-link>
-          <div class="hoverText" :class="{ show: isAddPlayerHovered }">
-            <p>Add New</p>
-            <p>Player</p>
+            <div class="hoverText" :class="{ show: isAddPlayerHovered }">
+              <p>Add New Player</p>
+            </div>
           </div>
-        </div>
-        <div
-          class="viewDatabase"
-          @mouseover="showViewDatabaseText(true)"
-          @mouseout="showViewDatabaseText(false)"
-        >
-          <router-link to="/database" class="link-database">
-            <i class="fas fa-database"></i>
-          </router-link>
-          <div class="hoverText" :class="{ show: isViewDatabaseHovered }">
-            <p>View</p>
-            <p>Database</p>
-          </div>
-        </div>
+        </router-link>
       </div>
       <div class="button-div" v-if="isphone == true">
         <div class="selectPlayers">
@@ -174,7 +160,6 @@ export default {
   data() {
     return {
       isAddPlayerHovered: false,
-      isViewDatabaseHovered: false,
       positionFilter: ["A", "M", "D", "G"],
       playerquery: [],
       selectedplayers: [],
@@ -202,9 +187,6 @@ export default {
   methods: {
     showAddPlayerText(state) {
       this.isAddPlayerHovered = state;
-    },
-    showViewDatabaseText(state) {
-      this.isViewDatabaseHovered = state;
     },
     searchPlayer() {
       const parameter = {
