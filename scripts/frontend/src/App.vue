@@ -39,6 +39,7 @@
       </div>
       <div class="output-frame">
         <div class="team-formation">
+          <div class="formation-team-title">{{ this.displayFormation }}</div>
           <div class="team-col">
             <div v-for="pos in team1" class="team-row">
               <div v-for="j in Object.keys(pos)" class="player">
@@ -49,6 +50,7 @@
           </div>
         </div>
         <div class="team-formation">
+          <div class="formation-team-title">{{ this.displayFormation }}</div>
           <div class="team-col">
             <div v-for="pos in team2" class="team-row">
               <div v-for="j in Object.keys(pos)" class="player">
@@ -177,6 +179,7 @@ export default {
       playerquery: [],
       selectedplayers: [],
       selectedFormation: "",
+      displayFormation: "",
       playercount: 0,
       searchValue: "",
       isphone: false,
@@ -234,6 +237,10 @@ export default {
       }
     },
     getFormations() {
+      this.selectedFormation = "";
+      this.displayFormation = "";
+      this.team1 = [];
+      this.team2 = [];
       axios
         .get(NGROK_TUNNEL + "/api/formations", {
           params: { no_p: this.playercount, selected_p: this.selectedplayers },
@@ -286,6 +293,7 @@ export default {
       else this.playercount = this.selectedplayers.length;
     },
     formTeams() {
+      this.displayFormation = this.selectedFormation;
       this.team1 = [];
       this.team2 = [];
       const defender = {
