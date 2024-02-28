@@ -1,2 +1,2 @@
-const NGROK_TUNNEL = "https://f56a-2409-40f4-10f7-6d29-d5b-b3ca-f484-29bf.ngrok-free.app"
+const NGROK_TUNNEL = "https://8ddc-103-5-112-80.ngrok-free.app"
 export default NGROK_TUNNEL
