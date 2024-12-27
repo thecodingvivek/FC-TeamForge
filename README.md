@@ -51,7 +51,6 @@ The frontend depends on a backend server for player management and team formatio
 
 ```bash
 git clone https://github.com/Thanus-Kumarr/FC-TeamForge-Backend.git
-cd FC-TeamForge-Backend
 ```
 Install backend dependencies:
 
