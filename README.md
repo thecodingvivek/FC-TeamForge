@@ -37,7 +37,7 @@ Welcome to **FC-TeamForge**, your ultimate solution for effortlessly creating ba
 
 Clone the repository:
 ```bash
-git clone https://github.com/YourUsername/FC-TeamForge.git
+git clone https://github.com/TharunKumarrA/FC-TeamForge.git
 cd FC-TeamForge/frontend
 ```
 ### Install dependencies
@@ -50,7 +50,7 @@ npm install
 The frontend depends on a backend server for player management and team formation. Clone the backend repository:
 
 ```bash
-git clone https://github.com/YourUsername/FC-TeamForge-Backend.git
+git clone https://github.com/Thanus-Kumarr/FC-TeamForge-Backend.git
 cd FC-TeamForge-Backend
 ```
 Install backend dependencies:
