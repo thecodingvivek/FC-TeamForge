@@ -1,31 +1,150 @@
 # FC-TeamForge: Squad Splitting Simplified! ⚽💻
 
-Welcome to FC-TeamForge, the ultimate solution for effortlessly creating balanced football teams from a pool of real-life players. No more debates, no more uneven teams – just smooth, hassle-free team formation!
+Welcome to **FC-TeamForge**, your ultimate solution for effortlessly creating balanced football teams from a pool of real-life players. This application streamlines team formation, ensuring fair and exciting games every time.
 
-## ⚽ Features that Make FC-TeamForge a Game-Changer:
+## ⚽ **Features that Make FC-TeamForge a Game-Changer**
 
-- **Dynamic Player Database:** Dive into a database filled with real players – your friends who share the love for football. Easily manage and organize your football squad.
+- **Dynamic Player Database:**
+  - Manage a database of real players, such as your friends, and organize your football squad.
+- **Smart Team Generator:**
+  - Automatically create balanced teams with the click of a button.
+- **Formation Flexibility:**
+  - Select from various formations to suit your strategy and maximize performance.
+- **Substitute Management:**
+  - Keep the game dynamic by selecting substitutes as needed.
+- **User-Friendly Interface:**
+  - An intuitive design ensures that even non-tech-savvy users can navigate the app effortlessly.
+- **Responsive Design (Planned):**
+  - Future updates will include seamless functionality across mobile, tablet, and desktop devices.
 
-- **Smart Team Generator:** Let FC-TeamForge take the lead! Hit a button, and witness the magic as the app intelligently crafts two evenly matched teams, ensuring a fair and exciting game every time.
+## ⚙️ **Tech Stack**
 
-- **Formation Flexibility:** Tailor your teams to your playing style! Choose from a variety of formations to suit your strategy and maximize your team's performance on the field.
+- **Frontend:** Vue.js with Vite
+- **Backend:** Node.js, Express.js, MySQL (for player database management)
+- **Styling:** CSS (static stylesheets)
+- **Icons and Graphics:** Font Awesome and external assets
 
-- **Substitute Management:** Keep the game dynamic by selecting substitutes. Ensure everyone gets a chance to play, and adapt your strategy based on real-time game dynamics.
+## ✨ **Planned Enhancements**
 
-- **Time-Saving:** Say goodbye to the endless debates over team formation. FC-TeamForge saves precious playing time by swiftly dividing players into teams, so you can focus on what matters – the game!
+1. **Responsive Design:** Ensure the app is mobile-friendly.
+2. **FIFA Card-like Graphics:** Improve player visuals.
+3. **Player Ranking System:** Add rankings based on frequency of play.
+4. **Database of Formations:** Expand and customize team formations.
 
-- **User-Friendly Interface:** The sleek and intuitive design ensures that even non-techies can navigate effortlessly. Team splitting has never been this cool and straightforward.
+## 🚀 **Getting Started**
 
-## 🚀 Why FC-TeamForge?
+### **Frontend Installation**
 
-- **Seamless Team Building:** Enjoy the convenience of instant team creation, leaving no room for disputes. FC-TeamForge is your go-to app for quick and balanced team formation.
+Clone the repository:
+```bash
+git clone https://github.com/YourUsername/FC-TeamForge.git
+cd FC-TeamForge/frontend
+```
+### Install dependencies
 
-- **Real Player Experience:** Unlike generic team generators, FC-TeamForge uses data from your actual group of friends, ensuring a personal and engaging team formation experience.
+```bash
+npm install
+```
+### Backend Installation
 
-- **Web App, No Hassle:** Access FC-TeamForge from any device with a web browser. No installations, no complications – just pure football fun.
+The frontend depends on a backend server for player management and team formation. Clone the backend repository:
 
-## 🌐 Getting Started:
+```bash
+git clone https://github.com/YourUsername/FC-TeamForge-Backend.git
+cd FC-TeamForge-Backend
+```
+Install backend dependencies:
 
-1. **Clone the Repository:**
+```bash
+npm install
+```
+Start the backend server:
+
+```bash
+node server.js
+```
+Ensure the backend server is running before starting the frontend.
+
+Run Frontend Locally
+Start the development server:
+
+```bash
+npm run dev
+```
+## 🌍 Usage
+
+- **Add Players:** Navigate to the "Add Player" screen and input player details.
+- **Select Players:** Choose players for the game from the database.
+- **Generate Teams:** Select a formation, and let the app divide players into balanced teams.
+- **Manage Substitutes:** Add substitutes to ensure everyone gets playtime.
+
+### **Usage Flow**
+
+1. **Initial View:** Upon entering the app, users will see a dashboard prompting them to select at least 6 players. Filters and a search bar are available to assist in player selection.
+   - **Filters:** Filter players by their roles (A: Attacker, M: Midfielder, D: Defender, G: Goalkeeper).
+   - **Search:** Search for players by name.
+2. **Select Players:** Add players to the "Selected Players" section to proceed with team formation.
+3. **Choose Formation:** Once the minimum player count is met, proceed to select a formation.
+4. **Generate Teams:** Click "Form Teams" to generate two balanced teams based on the selected formation.
+5. **Review and Adjust:** Adjust players or formations as needed.
+
+## 📊 Folder Structure
+
+```plaintext
+TharunKumarrA-FC-TeamForge/
+├── frontend/
+│   ├── index.html
+│   ├── public/
+│   │   ├── images/
+│   │   ├── constants.js
+│   ├── src/
+│   │   ├── components/
+│   │   │   └── NewPlayer.vue
+│   │   ├── static/
+│   │   ├── App.css
+│   │   └── NewPlayer.css
+│   └── main.js
+├── Docs/
+│   └── Design.md
+└── backend/
+    ├── server.js
+    ├── Algorithm.js
+    ├── sqlconnect.js
+    ├── nodemon.json
+    ├── package.json
+    └── README.md
+```
+## 🚒 Contributing
+
+We welcome contributions from the community! To contribute:
+
+1. **Fork the repository.**
+2. **Create a new branch:**
    ```bash
-   git clone https://github.com/YourUsername/FC-TeamForge.git
+   git checkout -b feature-name
+   ```
+3. Make your changes and commit them:
+   ```bash
+   git commit -m "Add your message here"
+   ```
+4. Push to your branch
+   ```bash
+   git push origin feature-name
+   ```
+5. Create a new PR to main
+
+## ❓ Issues
+
+Feel free to open issues for bugs, feature requests, or questions.
+
+## 🚀 Future Roadmap
+
+- Mobile and tablet responsiveness.
+- Enhanced graphics and player profiles.
+- Additional database features for formations and substitutes.
+- Ranking and statistics for players.
+
+## ⚔️ License
+
+This project is licensed under the MIT License.
+
