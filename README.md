@@ -50,7 +50,7 @@ npm install
 The frontend depends on a backend server for player management and team formation. Clone the backend repository:
 
 ```bash
-git clone https://github.com/Thanus-Kumarr/FC-TeamForge-Backend.git
+git clone https://github.com/Thanus-Kumaar/FC-TeamForge-server.git
 ```
 Install backend dependencies:
 
