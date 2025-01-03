@@ -195,7 +195,7 @@ export default {
       };
       this.playerquery = [];
       axios
-        .get(NGROK_TUNNEL + "/api/search_player", {
+        .get(NGROK_TUNNEL + "/api/players/search_player", {
           headers: {
             "ngrok-skip-browser-warning": "true",
           },
@@ -250,7 +250,7 @@ export default {
       else if (category == "D") cat = "Defender";
       else if (category == "G") cat = "GoalKeeper";
       axios
-        .get(NGROK_TUNNEL + "/api/player_by_category", {
+        .get(NGROK_TUNNEL + "/api/players/player_by_category", {
           headers: {
             "ngrok-skip-browser-warning": "true",
           },
