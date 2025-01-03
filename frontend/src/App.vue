@@ -423,9 +423,9 @@ export default {
     },
     openSelection(){
       document.addEventListener("DOMContentLoaded",()=>{
-        let btn=document.getElementsByClassName("create-team-cont")[0];
+        let btn=document.getElementsByClassName("create-btn")[0];
         btn.addEventListener("click",()=>{
-          btn.classList.toggle("create-team-cont-open");
+          document.getElementsByClassName("create-team-cont")[0].classList.toggle("create-team-cont-open");
           document.getElementsByClassName("selection")[0].classList.toggle("selection-open");
         })
       })
