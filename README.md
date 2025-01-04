@@ -47,29 +47,33 @@ npm install
 ```
 ### Backend Installation
 
-The frontend depends on a backend server for player management and team formation. Clone the backend repository:
+The frontend depends on a backend server for player management and team formation.
+1. Clone the backend repository:
 
 ```bash
 git clone https://github.com/Thanus-Kumaar/FC-TeamForge-server.git
 ```
-Install backend dependencies:
+2. Install backend dependencies:
 
 ```bash
 npm install
 ```
-Start the backend server:
+3. Start the backend server:
 
 ```bash
 node server.js
 ```
 Ensure the backend server is running before starting the frontend.
-
 Run Frontend Locally
-Start the development server:
+
+4. Start the development server:
 
 ```bash
 npm run dev
 ```
+
+A detailed guide for integrating the backend has been provided by [@thecodingvivek](https://github.com/thecodingvivek). It covers all aspects of the backend setup, API integration, and interaction with the database.
+
 ## 🌍 Usage
 
 - **Add Players:** Navigate to the "Add Player" screen and input player details.
