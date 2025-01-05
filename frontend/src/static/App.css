@@ -669,14 +669,14 @@ body {
 }
 
 
-@media only screen and (min-height: 690px){
+@media only screen and (min-height: 690px) and (max-width: 800px){
   .output-frame{
     height: calc(90% - 116px);
   }
   .output-frame{
     height: calc(100% - 116px);
   }
-
+ 
   .field-border{
     flex-direction: column;
   }
@@ -772,7 +772,7 @@ body {
   }
 }
 
-@media only screen and (max-width:370px) {
+@media only screen and (min-height: 690px) and (max-width:370px) {
   .main{
     padding: 20px;
     width: calc(100% - 40px);
@@ -781,7 +781,7 @@ body {
 }
 
 
-@media only screen and (max-width:360px) {
+@media only screen and (min-height: 690px) and (max-width:360px){
   .create-team-cont{
     width: 100%;
   }
