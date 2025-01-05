@@ -172,6 +172,57 @@ body {
   border: 4px solid var(--primary-bg);
   display: flex;
 }
+
+.left-gk{
+  width: 28%;
+  height: 44%;
+  border-right: 4px;
+  border-top:4px ;
+  border-bottom: 4px;
+  border-left: 0px;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+  border-style: solid;
+  border-color:var(--primary-bg);
+}
+
+.right-gk{
+  width: 28%;
+  height: 44%;
+  border-right: 0px;
+  border-top:4px ;
+  border-bottom: 4px;
+  border-left: 4px;
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+  border-style: solid;
+  border-color:var(--primary-bg);
+}
+
+.left-circle{
+  height: 28%;
+  aspect-ratio: .5/1;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-top-left-radius: 90px;
+  border-bottom-left-radius: 90px;
+  border-left:4px solid var(--primary-bg);
+  border-top: 4px solid var(--primary-bg);
+  border-bottom: 4px solid var(--primary-bg);
+}
+
+.right-circle{
+  height: 28%;
+  aspect-ratio: .5/1;
+  border-top-right-radius: 90px;
+  border-bottom-right-radius: 90px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  border-right:4px solid var(--primary-bg);
+  border-top: 4px solid var(--primary-bg);
+  border-bottom: 4px solid var(--primary-bg);
+}
+
 .addplayer-btn{
   width: 60px;
   height: 60px;
@@ -232,6 +283,9 @@ body {
   height: 100%;
   border-radius: 25px 0 0 25px;
   border-right: 2px solid var(--primary-bg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .team-formation:nth-child(2){
@@ -529,6 +583,7 @@ body {
     border: none;
     border-radius: 0px;
     border-bottom: 2px solid var(--primary-bg);
+    flex-direction: column;
   }
 
   .team-formation:nth-child(2){
@@ -540,22 +595,71 @@ body {
   .formation-nav{
     flex-direction: column;
     height: 100px;
-  }
-
-  .create-team-cont{
-    bottom: 10px;
-  }  
-}
-
-@media only screen and (max-width:600px) {
-
-  .formation-nav{
     justify-content: space-between;
     padding: 0;
   }
+
+    
+  .left-gk{
+    width: 44%;
+    height: 28%;
+    border-right: 4px;
+    border-top:0px ;
+    border-bottom: 4px;
+    border-left: 4px;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border-top-right-radius: 0px;
+    border-style: solid;
+    border-color:var(--primary-bg);
+  }
+
+  .right-gk{
+    width: 44%;
+    height: 28%;
+    border-right: 4px;
+    border-top:4px ;
+    border-bottom: 0px;
+    border-left: 4px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom-left-radius: 0px;
+    border-style: solid;
+    border-color:var(--primary-bg);
+  }
+
+  .left-circle{
+    width: 100px;
+    height: 50px;
+    border-top-left-radius: 100px; /* Radius = width */
+    border-top-right-radius: 100px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-left:4px solid var(--primary-bg);
+    border-top: 4px solid var(--primary-bg);
+    border-right: 4px solid var(--primary-bg);
+    border-bottom:0px;
+  }
+
+  .right-circle{
+    width: 100px;
+    height: 50px;
+    border-bottom-left-radius: 100px; /* Radius = width */
+    border-bottom-right-radius: 100px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-left:4px solid var(--primary-bg);
+    border-bottom: 4px solid var(--primary-bg);
+    border-right: 4px solid var(--primary-bg);
+    border-top:0px;
+  }
+
+
+
   .create-team-cont{
     right: 0px;
     position: relative;
+    bottom: 10px;
   }
 
   .output-frame{

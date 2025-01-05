@@ -4,7 +4,7 @@
   <div class="main">
     <div class="main-body">
       <div class="formation-nav">
-        <span class="main-head">FC TEAM FORAGE</span>
+        <span class="main-head">FC TEAM FORGE</span>
         <div class="create-team-cont">
           <div class="create-btn">
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
@@ -94,27 +94,36 @@
       <div class="output-frame">
          <div class="field-border">
               <div class="team-formation">
-              <div class="formation-team-title">{{ this.displayFormation }}</div>
-              <div class="team-col">
-                <div v-for="pos in team1" class="team-row">
-                  <div v-for="j in Object.keys(pos)" class="player">
-                    <div style="text-align: center">{{ j }}</div>
-                    <div class="posi-text">{{ pos[j] }}</div>
+                <!-- <div class="formation-team-title">{{ this.displayFormation }}</div>
+                <div class="team-col">
+                  <div v-for="pos in team1" class="team-row">
+                    <div v-for="j in Object.keys(pos)" class="player">
+                      <div style="text-align: center">{{ j }}</div>
+                      <div class="posi-text">{{ pos[j] }}</div>
+                    </div>
                   </div>
+                </div> -->
+                <div class="left-gk">
+
+                </div>
+                <div class="left-circle">
+
                 </div>
               </div>
-            </div>
-            <div class="team-formation">
-              <div class="formation-team-title">{{ this.displayFormation }}</div>
-              <div class="team-col">
-                <div v-for="pos in team2" class="team-row">
-                  <div v-for="j in Object.keys(pos)" class="player">
-                    <div style="text-align: center">{{ j }}</div>
-                    <div class="posi-text">{{ pos[j] }}</div>
+
+              <div class="team-formation">
+                <div class="right-circle"></div>
+                <div class="right-gk"></div>
+                <!-- <div class="formation-team-title">{{ this.displayFormation }}</div>
+                <div class="team-col">
+                  <div v-for="pos in team2" class="team-row">
+                    <div v-for="j in Object.keys(pos)" class="player">
+                      <div style="text-align: center">{{ j }}</div>
+                      <div class="posi-text">{{ pos[j] }}</div>
+                    </div>
                   </div>
-                </div>
+                </div> -->
               </div>
-            </div>
          </div>
         <div class="addplayer-btn">
           <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#dad7cd">
@@ -421,14 +430,15 @@ export default {
           console.log(err);
         });
     },
+
     openSelection(){
       document.addEventListener("DOMContentLoaded",()=>{
         let btn=document.getElementsByClassName("create-btn")[0];
         btn.addEventListener("click",()=>{
           document.getElementsByClassName("create-team-cont")[0].classList.toggle("create-team-cont-open");
           document.getElementsByClassName("selection")[0].classList.toggle("selection-open");
-        })
-      })
+        });
+      });
     }
   },
 };
